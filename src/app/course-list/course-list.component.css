@@ -1,0 +1,30 @@
+.coursesWrapper {
+  display: grid;
+  width: 90%;
+  margin: 1% 5%;
+  grid-template-columns: 29% 29% 29%;
+  column-gap: 5%;
+  row-gap: 15%;
+}
+
+.dividerContainer {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.dividerText {
+  color: gray;
+}
+
+@media screen and (max-width: 1300px) {
+  .coursesWrapper {
+    grid-template-columns: 47.5% 47.5%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .coursesWrapper {
+    grid-template-columns: 100%;
+    row-gap: 15px;
+  }
+}

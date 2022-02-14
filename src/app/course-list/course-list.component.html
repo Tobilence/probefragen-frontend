@@ -1,0 +1,9 @@
+<div *ngFor="let semesterCourses of mapped; let idx = index">
+  <div *ngIf="idx !== 0" ngClass="dividerContainer">
+    <span ngClass="dividerText">{{idx+1}}. Semester </span>
+    <mat-divider ngClass="divider"></mat-divider>
+  </div>
+  <div ngClass="coursesWrapper" [ngStyle]="{'margin': (idx === 0) ? '3% 5% 3% 5%' : '2% 5%'}">
+    <app-course-list-item *ngFor="let course of semesterCourses" [course]="course"></app-course-list-item>
+  </div>
+</div>

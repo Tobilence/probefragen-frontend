@@ -1,0 +1,34 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav"
+      [ngClass]="{hidden: (isHandset$ | async)! === false}"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar color="primary" ngClass="sideNav-Header">Menü</mat-toolbar>
+    <mat-nav-list>
+        <a class="link" >Kurse</a>
+        <a class="link" >Quizzes</a>
+        <a class="link" >Erstellen</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div ngClass="headerLine">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span ngClass="title">Probefragen.at</span>
+      <span class="spacer"></span>
+      <div *ngIf="(isHandset$ | async) === false">
+        <a class="link" routerLink="/courses">Kurse</a>
+        <a class="link" href="#">Quizzes</a>
+        <a class="link highlighted" href="#">Erstellen</a>
+      </div>
+    </div>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

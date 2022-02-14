@@ -1,0 +1,53 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sideNav-Header {
+  background-color: #4ab2f2;
+}
+
+.hidden {
+  display: none;
+}
+
+.headerLine {
+  width: 90%;
+  display: flex;
+  height: 60px;
+  margin: auto;
+  border-bottom: 2px solid #4ab2f2;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.title {
+  font-family: Comfortaa;
+  font-size: xx-large;
+}
+
+.link {
+  font-weight: 400;
+  padding: 7px 17px;
+  margin: 0 5px;
+  color: black;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all .5s;
+  font-size: 22px;
+}
+
+.link:hover {
+  background-color: #4ab2f2;
+  color: white;
+}
+
+.highlighted {
+  border: #4ab2f2 solid 1px;
+}

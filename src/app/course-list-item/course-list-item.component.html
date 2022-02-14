@@ -1,0 +1,7 @@
+<div *ngIf="course !== null" ngClass="wrapper" [routerLink]="['/courses', course.id]">
+  <h2 ngClass="title">{{course.name}}</h2>
+  <div ngClass="detailsLine">
+    <span ngClass="details">{{course.lecturerName}} </span>
+    <span ngClass="details" [ngStyle]="{'margin-right': '10px'}">{{course.intendedSemester}}. Semester</span>
+  </div>
+</div>

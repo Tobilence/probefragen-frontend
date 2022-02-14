@@ -1,0 +1,17 @@
+.wrapper {
+  padding: 2%;
+  border-radius: 15px;
+  background-color: rgba(74,178,242,1);
+  cursor: pointer;
+  height: 150px;
+}
+
+.title {
+  font-size: xx-large;
+  color: #000;
+  font-family: Comfortaa;
+}
+
+.details {
+  color: #000;
+}
