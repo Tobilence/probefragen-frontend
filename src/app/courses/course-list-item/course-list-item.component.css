@@ -1,15 +1,22 @@
 .wrapper {
   padding: 2%;
   border-radius: 15px;
-  background-color: rgba(74,178,242,1);
+  background-color: var(--primary-blue);
   cursor: pointer;
   height: 150px;
 }
 
 .title {
   font-size: xx-large;
+  overflow-wrap: break-word;
   color: #000;
+  height: 70%;
   font-family: Comfortaa;
+}
+
+.detailsLine {
+  display: flex;
+  justify-content: space-between;
 }
 
 .details {

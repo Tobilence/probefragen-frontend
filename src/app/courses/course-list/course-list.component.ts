@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Course } from 'src/app/core/course';
 import { __awaiter } from 'tslib';
-import { Course, CourseService } from '../course.service';
+import { CourseService } from '../service/course.service';
 
 @Component({
   selector: 'app-course-list',

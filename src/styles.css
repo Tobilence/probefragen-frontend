@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Comfortaa, "Helvetica Neue", sans-serif; }
+
+:root {
+  --primary-blue: #4ab2f2;
+  --green: #4CAF50
+}
+
+body {
+  margin: 0;
+  font-family: Avenir, "Helvetica Neue", sans-serif !important;
+}
+
+.title {
+  font-family: Comfortaa, "Helvetica Neue", sans-serif !important;
+}
+
+.clickable {
+  cursor: pointer;
+}

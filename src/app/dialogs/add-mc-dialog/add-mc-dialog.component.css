@@ -1,0 +1,103 @@
+.wrapper {
+  width: 100%;
+}
+
+.form {
+  width: 50%;
+  margin: 0 auto;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.formControl {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.answerOptionsWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.answerOption {
+  display: flex;
+  flex-direction: row;
+  column-gap: 5px;
+}
+
+.checkboxControl {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.answerOptionExplanationLine {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputLabel {
+  font-size: larger;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="text"].ng-invalid.ng-touched {
+  border: 1px solid red !important;
+}
+
+input[type=checkbox] {
+  width: 20px;
+}
+
+.error {
+  color: red;
+}
+.green {
+  color: green;
+}
+
+.addMCQuestionButton {
+  background-color: var(--green);
+  color: white;
+  padding: 5px 20px;
+  width: 40%;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Avenir';
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete {
+  color: gray;
+}
+
+.delete:hover {
+  color: red;
+}
+
+button {
+  background-color: var(--primary-blue);
+  color: white;
+  padding: 14px 40px;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Avenir';
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

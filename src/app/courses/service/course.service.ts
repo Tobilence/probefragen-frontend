@@ -1,13 +1,5 @@
 import { Injectable } from '@angular/core';
-
-export interface Course {
-  id: number,
-  name: string,
-  lecturerName: string
-  intendedSemester: number,
-  openEndedQuestions: object[],
-  multipleChoiceQuestions: object[]
-}
+import { Course } from 'src/app/core/course';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +22,8 @@ export class CourseService {
     return this.courses;
   }
 
-  getCourseById(id: number): Course {
+  async getCourseById(id: number): Promise<Course> {
+    await this.loadCoursesIfNecessary()
     return this.courses.filter(c => c.id === id)[0]
   }
 }

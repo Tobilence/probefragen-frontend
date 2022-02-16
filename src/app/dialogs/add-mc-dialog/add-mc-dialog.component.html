@@ -1,0 +1,62 @@
+<div ngClass="wrapper">
+  <form ngClass="form" #form="ngForm" (ngSubmit)=(onSubmit(form))>
+    <!-- Question Text -->
+    <div ngClass="formControl">
+      <label for="questionText" ngClass="inputLabel title">Fragestellung</label>
+      <input
+        [(ngModel)]="question.questionText"
+        required
+        type="text"
+        name="questionText"
+        id="questionText"
+        placeholder="Frage..."
+        #questionText="ngModel"
+      />
+      <small *ngIf="!questionText.valid && questionText.touched" ngClass="error"> Fragestellung ist ein Pflichtfeld</small>
+    </div>
+
+    <!-- Question Source -->
+    <div ngClass="formControl">
+      <label for="questionSource" ngClass="inputLabel title">Teile deine Antwort! (Optional)</label>
+      <input
+        [(ngModel)]="question.source"
+        type="text"
+        name="questionSource"
+        id="questionSource"
+        placeholder="Eigene Erklärung, Skript Seite, oder Antwort-Link? Egal was, alles ist hilfreich!"
+        #questionSource="ngModel"
+      />
+    </div>
+
+    <!-- Answer Options -->
+    <div ngClass="answerOptionsWrapper">
+      <span ngClass="title inputLabel">Antwortmöglichkeiten</span>
+    <div *ngFor="let answerOption of question.answerOptions; let idx = index" ngClass="answerOption">
+      <div ngClass="formControl">
+        <input
+          [(ngModel)]="question.answerOptions[idx][0]"
+          required
+          type="text"
+          name="answerOption_{{idx}}"
+          id="answerOption_{{idx}}"
+          placeholder="Antwortmöglichkeit..."
+          #questionText="ngModel"
+        />
+        <small *ngIf="!questionText.valid && questionText.touched" ngClass="error"> Bitte gib eine Antwortmöglichkeit ein, oder lösche die Antwortmöglichkeit komplett.</small>
+        <div ngClass="answerOptionExplanationLine">
+          <small *ngIf="checkAnswerOptionError(form, idx)" ngClass="error"> Fragestellung ist ein Pflichtfeld</small>
+          <small *ngIf="question.answerOptions[idx][1]"> Diese Antwort wird als <span ngClass="green">richtig</span> gewertet!</small>
+          <small *ngIf="!question.answerOptions[idx][1]"> Diese Antwort wird als <span ngClass="error">falsch</span> gewertet!</small>
+          <small (click)="deleteAnswerOption(idx)" ngClass="clickable delete" > Antwortmöglichkeit Löschen</small>
+        </div>
+      </div>
+      <div ngClass="checkboxControl">
+        <label (click)="log(question)"> Richtig?</label>
+        <input [(ngModel)]="question.answerOptions[idx][1]" name="checked" type="checkbox" #checked="ngModel"/>
+      </div>
+    </div>
+    <button ngClass="addMCQuestionButton" *ngIf="question.answerOptions.length <= 4" (click)="addEmptyAnswerOption()"> Antwortmöglichkeit hinzufügen</button>
+    </div>
+    <button type="submit">Frage Speichern</button>
+  </form>
+</div>

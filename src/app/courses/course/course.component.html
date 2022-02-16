@@ -1,0 +1,17 @@
+<div ngClass="mainWrapper">
+  <div ngClass="infoLineWrapper title">
+    <div>
+      <span ngClass="infoLine" [style]="{'margin-right': '5px'}">{{(course | async)!.name}}</span>
+      -
+      <span ngClass="infoLine" [style]="{'margin-left': '5px'}"> {{(course | async)!.intendedSemester}}. Semester</span>
+    </div>
+    <span ngClass="actionCall" >Hilf anderen indem du selbst Fragen hinzufügst!</span>
+  </div>
+
+  <div ngClass="questionAreaWrapper">
+      <div *ngFor="let question of (course | async)!.multipleChoiceQuestions">
+          {{question.questionText}}
+          <mat-divider></mat-divider>
+      </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Course, CourseService } from '../course.service';
+import { Course } from 'src/app/core/course';
+import { CourseService } from '../service/course.service';
 
 @Component({
   selector: 'app-course',
@@ -9,7 +10,7 @@ import { Course, CourseService } from '../course.service';
 })
 export class CourseComponent implements OnInit {
 
-  course: Course | null = null
+  course: Promise<Course> | null = null
 
   constructor(private route: ActivatedRoute, private courseService: CourseService) { }
 
