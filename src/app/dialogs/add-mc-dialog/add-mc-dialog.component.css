@@ -1,11 +1,6 @@
-.wrapper {
-  width: 100%;
-}
-
 .form {
-  width: 50%;
-  margin: 0 auto;
-  padding: 50px;
+  width: 800px;
+  padding: 0 50px;
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -100,4 +95,9 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: all .5s;
+}
+
+button:hover {
+  background-color: var(--green);
 }

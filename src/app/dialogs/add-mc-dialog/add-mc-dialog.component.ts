@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Course } from 'src/app/core/course';
+import { MCAnswerOption } from 'src/app/core/mcanswer-option';
 import { MCQuestion } from 'src/app/core/mcquestion';
+import { CourseService } from 'src/app/courses/service/course.service';
 
 @Component({
   selector: 'app-add-mc-dialog',
@@ -8,16 +11,22 @@ import { MCQuestion } from 'src/app/core/mcquestion';
 })
 export class AddMcDialogComponent implements OnInit {
 
-  question: MCQuestion = new MCQuestion(null, "", "", "", [["", false], ["", false], ["", false]])
+  @Input() selectedCourse: number = -1
+  question: MCQuestion = new MCQuestion(null, "", "", null, [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
 
-  constructor() { }
+  constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(form: any) {
+    console.log("Selected: ", this.selectedCourse)
     console.log(this.question)
-    console.log(form)
+
+    const body = { ...this.question, courseId: this.selectedCourse}
+
+    this.courseService.saveQuestion(this.question, this.selectedCourse)
+
   }
 
   log(x: any) {
@@ -25,16 +34,14 @@ export class AddMcDialogComponent implements OnInit {
   }
 
   addEmptyAnswerOption() {
-    this.question.answerOptions.push(["", false])
+    this.question.answerOptions.push(new MCAnswerOption(null, "", false))
   }
 
   deleteAnswerOption(idx: number) {
     this.question.answerOptions.splice(idx, 1)
   }
 
-  checkAnswerOptionError(form: any, idx: number) {
-    //TODO
-    return false
+  checkAnswerOptionError(idx: number) {
+    return this.question.answerOptions[idx].answerText === ""
   }
-
 }

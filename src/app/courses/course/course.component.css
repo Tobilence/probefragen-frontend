@@ -14,9 +14,12 @@
 }
 
 .questionAreaWrapper {
-  margin: 5% auto;
-  width: 70%;
-  height: 300px;
+  padding: 2% 0;
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  column-gap: 15px;
+  row-gap: 15px;
+  width: 100%;
 }
 
 .actionCall {
@@ -31,4 +34,11 @@
 .actionCall:hover {
   color: #fff;
   background-color: #4ab2f2;
+}
+
+.questionDetailWrapepr {
+  padding: 2% 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }

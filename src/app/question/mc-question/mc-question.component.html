@@ -1,0 +1,20 @@
+<div *ngIf="mcQuestion | async as mcQuestion" ngClass="answerOptionsWrapper">
+  <h2>{{mcQuestion.questionText}}</h2>
+  <div *ngFor="let answerOption of mcQuestion.answerOptions" ngClass="answerOptionContainer">
+      <div ngClass="answerOptionLine">
+        <input (change)="checkboxChange(answerOption, $event)" #checkbox type="checkbox" ngClass="checkbox"/>
+        <span
+          (click)="answerOptionClicked(answerOption)"
+          ngClass="answerOptionText"
+          [ngStyle]="{'color': isCorrect(answerOption.id!) === undefined ? 'black' : isCorrect(answerOption.id!) ? 'green' : 'red'}"
+        >
+          {{answerOption.answerText}}
+        </span>
+      </div>
+      <small ngClass="validationText" *ngIf="showValidation" >
+        {{isCorrect(answerOption.id!) ? "Richtige Antwort!" : "Leider falsch!"}}
+      </small>
+  </div>
+  <span *ngIf="showValidation" ngClass="pointText"> Du hättest auf diese Frage <span [ngStyle]="{'color': pointPercentage >= 0.75 ? 'green' : 'red'}">{{pointPercentage}} Punkte </span> erhalten.</span>
+  <button (click)="validateAnswers()" ngClass="checkButton">Prüfen</button>
+</div>

@@ -1,0 +1,65 @@
+.answerOptionsWrapper {
+  margin: 20px 0;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.answerOptionContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  row-gap: 5px;
+}
+
+.answerOptionLine {
+  display: inline-block;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.answerOptionText {
+  font-size: 14px;
+  margin-bottom: 3px;
+  height: 16px;
+  cursor: default;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.checkButton {
+  background-color: var(--primary-blue);
+  margin: 25px 0 0 0;
+  color: white;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Avenir';
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .5s;
+}
+
+.checkButton:hover {
+  background-color: var(--dark-blue);
+}
+
+.validationText {
+  width: 150px;
+}
+
+.pointText {
+  width: 100%;
+  text-align: center;
+  margin: 15px 0 0 0;
+}

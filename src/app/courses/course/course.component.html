@@ -1,17 +1,31 @@
 <div ngClass="mainWrapper">
-  <div ngClass="infoLineWrapper title">
+  <div ngClass="infoLineWrapper title" *ngIf="course | async as course">
     <div>
-      <span ngClass="infoLine" [style]="{'margin-right': '5px'}">{{(course | async)!.name}}</span>
+      <span ngClass="infoLine" [style]="{'margin-right': '5px'}">{{course.name}}</span>
       -
-      <span ngClass="infoLine" [style]="{'margin-left': '5px'}"> {{(course | async)!.intendedSemester}}. Semester</span>
+      <span ngClass="infoLine" [style]="{'margin-left': '5px'}"> {{course.intendedSemester}}. Semester</span>
     </div>
-    <span ngClass="actionCall" >Hilf anderen indem du selbst Fragen hinzufügst!</span>
+    <span ngClass="actionCall" [routerLink]="['/add-question']" [queryParams]="{preselectedCourse: course.id}">Hilf anderen indem du selbst Fragen hinzufügst!</span>
   </div>
 
-  <div ngClass="questionAreaWrapper">
-      <div *ngFor="let question of (course | async)!.multipleChoiceQuestions">
-          {{question.questionText}}
-          <mat-divider></mat-divider>
-      </div>
+  <div ngClass="questionAreaWrapper" *ngIf="mixedQuestions !== null && selectedQuestion === null">
+      <question-list-item
+        *ngFor="let question of mixedQuestions"
+        [mcQuestion]="question"
+        (click)="handleQuestionSelect(question)"
+        routerLink="./"
+        [queryParams]="{question: question.id}"
+      >
+      </question-list-item>
   </div>
+  <div ngClass="questionDetailWrapepr" *ngIf="selectedQuestion !== null">
+    <question-detail-view
+      [isMultipleChoice]="selectedQuestion.isMultipleChoice"
+      [selectNextQuestion]="handleNextQuestion"
+      [mixedQuestion]="selectedQuestion"
+      [course]="course"
+    >
+    </question-detail-view>
+
+</div>
 </div>

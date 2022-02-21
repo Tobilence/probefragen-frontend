@@ -1,0 +1,29 @@
+.wrapper {
+  width: 800px;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Layout */
+.topUtilityLine {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bottomUtilityLine {
+  border-top: 1px solid var(--divider-gray);
+  padding: 5px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.mat-icon {
+  font-size: x-small;
+  padding-right: 0px;
+  width: 10px;
+}

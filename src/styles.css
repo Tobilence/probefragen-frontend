@@ -4,7 +4,11 @@ html, body { height: 100%; }
 
 :root {
   --primary-blue: #4ab2f2;
-  --green: #4CAF50
+  --dark-blue: #4c516d;
+  --navy-blue: #464d77;
+  --washed-green: #A3C9A8;
+  --green: #4CAF50;
+  --divider-gray: #C8C8C8;
 }
 
 body {
@@ -18,4 +22,11 @@ body {
 
 .clickable {
   cursor: pointer;
+}
+
+.text-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: var(--primary-blue);
+  transition: all 0.5s;
 }

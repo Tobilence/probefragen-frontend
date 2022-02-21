@@ -1,13 +1,13 @@
-import { Question } from "./question";
+import { MCAnswerOption } from "./mcanswer-option";
 
 export class MCQuestion {
 
   constructor(
-    public id: number | null,
+    public id: number | null,
     public questionText: string,
     public source: string,
-    public badge: string,
-    public answerOptions: Array<[string, boolean]>
+    public badge: string | null,
+    public answerOptions: Array<MCAnswerOption>
   ) {
   }
 }

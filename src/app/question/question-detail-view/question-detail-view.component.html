@@ -1,0 +1,34 @@
+<div ngClass="wrapper" *ngIf="mixedQuestion">
+  <div ngClass="topUtilityLine">
+    <span ngClass="text-link" routerLink="./" [queryParams]="{}">
+        <mat-icon aria-label="Back to List View">arrow_back</mat-icon>
+        Zurück zur Listenansicht
+    </span>
+    <span>
+      Übungsmodus
+    </span>
+  </div>
+
+  <!-- Question Answer -->
+  <div *ngIf="mcQuestion !== null">
+    <mc-question
+      [mcQuestion]="mcQuestion"
+    >
+    </mc-question>
+  </div>
+  <div *ngIf="!isMultipleChoice">
+    Open
+  </div>
+
+  <!-- Bottom Utlities -->
+  <div ngClass="bottomUtilityLine">
+    <span ngClass="text-link">
+      <mat-icon aria-label="Back">arrow_back</mat-icon>
+      zur vorherigen Frage
+    </span>
+    <span ngClass="text-link" (click)="nextQuestionClicked()">
+      zur nächsten Frage
+      <mat-icon aria-label="Back">arrow_forward</mat-icon>
+    </span>
+  </div>
+</div>
