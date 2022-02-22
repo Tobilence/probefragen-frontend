@@ -1,4 +1,4 @@
-<div ngClass="wrapper" *ngIf="mixedQuestion">
+<div ngClass="wrapper" *ngIf="genericQuestion">
   <div ngClass="topUtilityLine">
     <span ngClass="text-link" routerLink="./" [queryParams]="{}">
         <mat-icon aria-label="Back to List View">arrow_back</mat-icon>
@@ -10,15 +10,13 @@
   </div>
 
   <!-- Question Answer -->
-  <div *ngIf="mcQuestion !== null">
-    <!--
-    <deprecated-mc-question
+  <div *ngIf="mcQuestion | async as mcQuestion">
+    <mc-question
       [mcQuestion]="mcQuestion"
     >
-    </deprecated-mc-question>
-    -->
+    </mc-question>
   </div>
-  <div *ngIf="!isMultipleChoice">
+  <div *ngIf="openQuestion | async as openQuestion">
     Open
   </div>
 

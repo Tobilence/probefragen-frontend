@@ -24,9 +24,15 @@ export class McQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.givenAnswers === null) {
-      this.quizService.progress.subscribe(progress => {
-        this.givenAnswers = this.quizService.getQuestionAt(progress).answerOptions.map((opt) => ({id: opt.id!, givenAnswer: false, evaluation: undefined }))
-      })
+      if (this.quizMode) {
+        // Quiz Mode
+        this.quizService.progress.subscribe(progress => {
+          this.givenAnswers = this.quizService.getQuestionAt(progress).answerOptions.map((opt) => ({id: opt.id!, givenAnswer: false, evaluation: undefined }))
+        })
+      } else {
+        // Practice Mode
+        this.givenAnswers = this.mcQuestion!.answerOptions.map((ans) => ({id: ans.id!, givenAnswer: false, evaluation: undefined}))
+      }
     }
   }
 

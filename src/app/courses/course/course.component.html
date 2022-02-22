@@ -8,23 +8,19 @@
     <span ngClass="actionCall" [routerLink]="['/add-question']" [queryParams]="{preselectedCourse: course.id}">Hilf anderen indem du selbst Fragen hinzufügst!</span>
   </div>
 
-  <div ngClass="questionAreaWrapper" *ngIf="mixedQuestions !== null && selectedQuestion === null">
+  <div ngClass="questionAreaWrapper" *ngIf="genericQuestions !== null && selectedQuestion === null">
       <question-list-item
-        *ngFor="let question of mixedQuestions"
+        *ngFor="let question of genericQuestions"
         [mcQuestion]="question"
         (click)="handleQuestionSelect(question)"
         routerLink="./"
-        [queryParams]="{question: question.id}"
+        [queryParams]="{question: question.id, mc: question.isMultipleChoice}"
       >
       </question-list-item>
   </div>
   <div ngClass="questionDetailWrapepr" *ngIf="selectedQuestion !== null">
     <question-detail-view
-      [isMultipleChoice]="selectedQuestion.isMultipleChoice"
-      [questionIds]="questionIds"
-      [handleSelectNextQuestion]="handleNextQuestion"
-      [mixedQuestion]="selectedQuestion"
-      [course]="course"
+      [genericQuestion]="selectedQuestion"
     >
     </question-detail-view>
 

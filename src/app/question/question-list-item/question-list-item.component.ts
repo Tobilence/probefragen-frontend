@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MCQuestion } from 'src/app/core/mcquestion';
-import { MixedQuestion } from 'src/app/courses/course/course.component';
+import { GenericQuestion } from 'src/app/courses/service/course-detail.service';
 
 @Component({
   selector: 'question-list-item',
@@ -9,7 +9,7 @@ import { MixedQuestion } from 'src/app/courses/course/course.component';
 })
 export class QuestionListItemComponent implements OnInit {
 
-  @Input() mcQuestion: MixedQuestion | null = null
+  @Input() mcQuestion: GenericQuestion | null = null
 
   constructor() { }
 
