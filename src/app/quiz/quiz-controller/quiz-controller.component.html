@@ -1,0 +1,5 @@
+<ng-container [ngSwitch]="activeStatus">
+  <app-start-quiz *ngSwitchCase="'start'"></app-start-quiz>
+  <app-quiz-view *ngSwitchCase="'active'"></app-quiz-view>
+  <app-quiz-done *ngSwitchCase="'done'"></app-quiz-done>
+</ng-container>

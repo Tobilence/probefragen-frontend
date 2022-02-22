@@ -1,0 +1,7 @@
+DEMO Text lala
+<div *ngIf="!didLoad">
+  Quiz is Loading
+  Demo Text & disclaimer here
+</div>
+
+<button [disabled]="!didLoad" routerLink="./" [queryParams]="{status: 'active'}">Start Quiz</button>

@@ -43,34 +43,30 @@ export class CourseComponent implements OnInit {
 
       // create a randomized lsit of shuffled mc & open questions
       this.course.then(course => {
+        course.multipleChoiceQuestions.forEach(question => {
+          console.log("Loop")
+          this.mixedQuestions.push({
+            id: question.id!,
+            isMultipleChoice: true,
+            questionText: question.questionText
+          })
+        });
 
-        new Promise(
-          () => {
-            course.multipleChoiceQuestions.forEach(question => {
-              this.mixedQuestions.push({
-                id: question.id!,
-                isMultipleChoice: true,
-                questionText: question.questionText
-              })
-            });
-
-            course.openEndedQuestions.forEach(question => {
-              this.mixedQuestions.push({
-                id: question.id!,
-                isMultipleChoice: false,
-                questionText: question.questionText
-              })
-            });
-          }
-        )
-        .then(() => {
-          console.log("Shuffle...")
-          this.mixedQuestions = this.shuffle(this.mixedQuestions)
-          this.selectedQuestion = this.mixedQuestions[0]
-          this.questionIds = this.mixedQuestions.map(q => q.id)
-          console.log("Did set", this.questionIds)
-          console.log(this.mixedQuestions.length)
+        course.openEndedQuestions.forEach(question => {
+          console.log("Loop1")
+          this.mixedQuestions.push({
+            id: question.id!,
+            isMultipleChoice: false,
+            questionText: question.questionText
+          })
         })
+      })
+      .then(() => {
+        console.log("Shuffle...")
+        this.mixedQuestions = this.shuffle(this.mixedQuestions)
+        // this.selectedQuestion = this.mixedQuestions[0] -- uncomment only for developing purpose
+        this.questionIds = this.mixedQuestions.map(q => q.id)
+        console.log("QuestionIDS: ", this.questionIds)
       })
 
     }))
@@ -99,8 +95,7 @@ export class CourseComponent implements OnInit {
     this.selectedQuestion = question
   }
 
-  handleNextQuestion() {
-    console.log(this.questionIds)
+  public handleNextQuestion(): MixedQuestion {
     let id = this.questionIds[this.questionIds.length - 1]
     this.questionIds.pop()
     this.selectedQuestion = this.mixedQuestions.filter(q => q.id === id)[0]
@@ -111,11 +106,12 @@ export class CourseComponent implements OnInit {
         relativeTo: this.activatedRoute,
         queryParams: { question: id },
         queryParamsHandling: 'merge'
-      })
+    })
+
+    return this.selectedQuestion
   }
 
   async getQuestion(question: MixedQuestion) {
-    console.log("Get Question!")
     if (question.isMultipleChoice) {
       let course = await this.course!
       return course.multipleChoiceQuestions.filter(q => q.id === question.id)[0]
@@ -126,6 +122,7 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    console.log("dest")
     this.queryListener?.unsubscribe()
     this.routeListener?.unsubscribe()
   }

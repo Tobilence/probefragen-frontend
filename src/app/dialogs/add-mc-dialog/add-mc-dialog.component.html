@@ -1,4 +1,4 @@
-<form ngClass="form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+<form ngClass="form" #form="ngForm" (ngSubmit)="onSubmit()">
   <!-- Question Text -->
   <div ngClass="formControl">
     <label for="questionText" ngClass="inputLabel title">Fragestellung</label>
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div ngClass="checkboxControl">
-      <label (click)="log(question)"> Richtig?</label>
+      <label> Richtig?</label>
       <input [(ngModel)]="question.answerOptions[idx].isCorrect" name="checked" type="checkbox" #checked="ngModel"/>
     </div>
   </div>

@@ -46,7 +46,9 @@ export class CourseService {
     }
 
     let data: MCQuestion = await result.json()
-    // TODO - add MC Question to course
+    let filtered = this.courses.filter(c => c.id == courseId)
+    filtered[0].multipleChoiceQuestions.push(data)
+    console.log("after", filtered)
     return data
   }
 }

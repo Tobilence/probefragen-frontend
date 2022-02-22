@@ -1,0 +1,44 @@
+.wrapper {
+  width: 800px;
+  display: flex;
+  margin: 0 auto;
+  padding: 25px 0 0 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.infoLineWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Layout */
+.topUtilityLine {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bottomUtilityLine {
+  border-top: 1px solid var(--divider-gray);
+  padding: 5px 0 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.progress {
+  height: 100%;
+  transform: translateY(-7px);
+  border-radius: 5px;
+  border-top: 5px solid green;
+}
+
+.mat-icon {
+  font-size: x-small;
+  padding-right: 0px;
+  width: 10px;
+}

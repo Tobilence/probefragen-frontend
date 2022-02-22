@@ -11,10 +11,12 @@
 
   <!-- Question Answer -->
   <div *ngIf="mcQuestion !== null">
-    <mc-question
+    <!--
+    <deprecated-mc-question
       [mcQuestion]="mcQuestion"
     >
-    </mc-question>
+    </deprecated-mc-question>
+    -->
   </div>
   <div *ngIf="!isMultipleChoice">
     Open

@@ -21,7 +21,8 @@
   <div ngClass="questionDetailWrapepr" *ngIf="selectedQuestion !== null">
     <question-detail-view
       [isMultipleChoice]="selectedQuestion.isMultipleChoice"
-      [selectNextQuestion]="handleNextQuestion"
+      [questionIds]="questionIds"
+      [handleSelectNextQuestion]="handleNextQuestion"
       [mixedQuestion]="selectedQuestion"
       [course]="course"
     >

@@ -1,0 +1,18 @@
+  <div ngClass="wrapper">
+    <div ngClass="infoLineWrapper title">
+      <span ngClass="infoLine" [style]="{'margin-right': '5px'}">Quiz</span>
+    </div>
+    <!-- Question -->
+    <div>
+      <mc-question
+        [mcQuestion]="currentQuestion"
+        [quizMode]="true"
+      >
+      </mc-question>
+    </div>
+
+    <!-- Bottom Utlities -->
+    <div ngClass="bottomUtilityLine">
+      <div ngClass="progress" [ngStyle]="{'width': calculateProgress()}">  </div>
+    </div>
+  </div>

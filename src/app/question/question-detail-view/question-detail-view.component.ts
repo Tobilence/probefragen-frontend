@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Course } from 'src/app/core/course';
 import { MCAnswerOption } from 'src/app/core/mcanswer-option';
 import { MCQuestion } from 'src/app/core/mcquestion';
 import { OpenQuestion } from 'src/app/core/open-question';
-import { MixedQuestion } from 'src/app/courses/course/course.component';
+import { CourseComponent, MixedQuestion } from 'src/app/courses/course/course.component';
 import { CourseService } from 'src/app/courses/service/course.service';
 
 @Component({
@@ -17,14 +17,15 @@ export class QuestionDetailViewComponent implements OnInit {
   @Input() isMultipleChoice: boolean | null = null
   @Input() mixedQuestion: MixedQuestion | null = null
   @Input() course: Promise<Course> | null = null
-  @Input() selectNextQuestion: () => void = () => {}
+  @Input() questionIds: Array<number> = []
+  @Input() handleSelectNextQuestion: (ids: Array<number>) => void = () => {}
 
   mcQuestion: Promise<MCQuestion> | null = null
   openQuestion: Promise<OpenQuestion> | null = null
 
   givenAnswers: Array<{id: number, givenAnswer: boolean}> | null = null
 
-  constructor() { }
+  constructor(@Inject(CourseComponent) private parent: CourseComponent) { }
 
   ngOnInit(): void {
     this.course?.then(c => {
@@ -53,7 +54,6 @@ export class QuestionDetailViewComponent implements OnInit {
   }
 
   nextQuestionClicked() {
-    console.log("Next Question")
-    this.selectNextQuestion()
+    this.parent.handleNextQuestion()
   }
 }

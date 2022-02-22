@@ -23,6 +23,10 @@ import { CourseListComponent } from './courses/course-list/course-list.component
 import { CourseListItemComponent } from './courses/course-list-item/course-list-item.component';
 import { QuestionDetailViewComponent } from './question/question-detail-view/question-detail-view.component';
 import { McQuestionComponent } from './question/mc-question/mc-question.component';
+import { StartQuizComponent } from './quiz/start-quiz/start-quiz.component';
+import { QuizViewComponent } from './quiz/quiz-view/quiz-view.component';
+import { QuizControllerComponent } from './quiz/quiz-controller/quiz-controller.component';
+import { QuizDoneComponent } from './quiz/quiz-done/quiz-done.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,11 @@ import { McQuestionComponent } from './question/mc-question/mc-question.componen
     CourseListComponent,
     CourseListItemComponent,
     QuestionDetailViewComponent,
-    McQuestionComponent
+    McQuestionComponent,
+    StartQuizComponent,
+    QuizViewComponent,
+    QuizControllerComponent,
+    QuizDoneComponent
   ],
   imports: [
     BrowserModule,

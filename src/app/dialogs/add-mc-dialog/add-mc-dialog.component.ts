@@ -19,18 +19,9 @@ export class AddMcDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(form: any) {
-    console.log("Selected: ", this.selectedCourse)
-    console.log(this.question)
-
+  onSubmit() {
     const body = { ...this.question, courseId: this.selectedCourse}
-
     this.courseService.saveQuestion(this.question, this.selectedCourse)
-
-  }
-
-  log(x: any) {
-    console.log(x)
   }
 
   addEmptyAnswerOption() {

@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { BehaviorSubject, EMPTY, Observable, of, Subscription } from 'rxjs';
 import { MCAnswerOption } from 'src/app/core/mcanswer-option';
 import { MCQuestion } from 'src/app/core/mcquestion';
+import { QuizService } from 'src/app/quiz/quiz.service';
 
 @Component({
   selector: 'mc-question',
@@ -9,20 +11,23 @@ import { MCQuestion } from 'src/app/core/mcquestion';
 })
 export class McQuestionComponent implements OnInit {
 
-  @Input() mcQuestion: Promise<MCQuestion> | null = null
+  @Input() mcQuestion: MCQuestion | null = null
+  @Input() quizMode: boolean = false
+  @Input() reviewMode: boolean = false
+  @Input() showValidation: boolean = false
+  @Input() givenAnswers: Array<{id: number, givenAnswer: boolean, evaluation: boolean | undefined}> | null = null
+  @Input("score") pointPercentage = 0
 
-  givenAnswers: Array<{id: number, givenAnswer: boolean, evaluation: boolean | undefined}> | null = null
+  progressSubscription: Subscription | null = null
 
-  showValidation = false
-  pointPercentage = 0
-
-  constructor() { }
+  constructor(private quizService: QuizService) { }
 
   ngOnInit(): void {
-    console.log("mc", this.mcQuestion)
-    this.mcQuestion!.then((mcQuestion) => {
-      this.givenAnswers = mcQuestion.answerOptions.map(a => ({id: a.id!, givenAnswer: false, evaluation: undefined }))
-    })
+    if (this.givenAnswers === null) {
+      this.quizService.progress.subscribe(progress => {
+        this.givenAnswers = this.quizService.getQuestionAt(progress).answerOptions.map((opt) => ({id: opt.id!, givenAnswer: false, evaluation: undefined }))
+      })
+    }
   }
 
   checkboxChange(answerOption: MCAnswerOption, event: any) {
@@ -36,28 +41,55 @@ export class McQuestionComponent implements OnInit {
     answerObject.givenAnswer = !answerObject.givenAnswer
   }
 
-  validateAnswers() {
-    this.mcQuestion!
-      .then(mcQuestion => {
-        let numOfCorrectAnswers = 0
-        for (let i = 0; i < mcQuestion.answerOptions.length; i++) {
-          let givenAnswer = this.givenAnswers![i].givenAnswer
-          let actualAnswer = mcQuestion.answerOptions[i].isCorrect
-          let isCorrect = givenAnswer === actualAnswer
-          this.givenAnswers![i].evaluation = isCorrect
-          if (isCorrect) {
-            numOfCorrectAnswers += 1
-          }
+  validateAnswers(showValidation: boolean) {
+      let numOfCorrectAnswers = 0
+      let markedTooMany = false
+      for (let i = 0; i < this.mcQuestion!.answerOptions.length; i++) {
+        let givenAnswer = this.givenAnswers![i].givenAnswer
+        let actualAnswer = this.mcQuestion!.answerOptions[i].isCorrect
+        let isCorrect = givenAnswer === actualAnswer
+        this.givenAnswers![i].evaluation = isCorrect
+        if (isCorrect) {
+          numOfCorrectAnswers += 1
         }
+        if (givenAnswer && !actualAnswer) {
+          markedTooMany = true
+        }
+      }
+      // check if too many questions were marked (results in 0 points!)
+      if (markedTooMany) {
+        this.pointPercentage = 0
+      } else {
         this.pointPercentage = numOfCorrectAnswers / this.givenAnswers!.length
-      })
-      .then(() => {
-        this.showValidation = true
-      })
+      }
+
+      // todo - maybe this exectues too early
+      this.showValidation = showValidation
+  }
+
+  // handles the next Press in quiz Mode
+  nextQuestion() {
+    if (!this.quizMode) {
+      throw new Error("Method should only be called in Quiz mode!")
+    }
+    this.validateAnswers(false)
+
+    let answer = {
+      mcQuestionId: this.mcQuestion!.id!,
+      score: this.pointPercentage,
+      givenAnswers: this.givenAnswers!.map(g => ({id: g.id, givenAnswer: g.givenAnswer, evaluation: g.evaluation!}))
+    }
+    console.log("in sub", answer.score)
+    this.quizService.submitAnswer(answer)
+    this.quizService.requestNextQuestion()
   }
 
   // generates a validation text for the answer with given ID
   isCorrect(id: number) {
       return this.givenAnswers?.filter(a => a.id === id)[0].evaluation
+  }
+
+  ngOnDestroy() {
+    this.progressSubscription?.unsubscribe()
   }
 }

@@ -1,0 +1,12 @@
+<p>Quiz Done!</p>
+<p>{{score}}</p>
+<div *ngFor="let answer of givenAnswers">
+  <mc-question
+    [reviewMode]="true"
+    [mcQuestion]="generateMcQuestion(answer)"
+    [givenAnswers]="answer.givenAnswers"
+    [score]="answer.score"
+  >
+
+  </mc-question>
+</div>
