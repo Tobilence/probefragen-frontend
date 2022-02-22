@@ -1,0 +1,23 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.selectWrapper {
+  width: 800px;
+}
+
+.formControl {
+  margin-top: 50px;
+}
+
+.inputLabel {
+  font-size: larger;
+}
+
+.not-empty-select.mat-selected {
+  color: var(--primary-blue) !important;
+}

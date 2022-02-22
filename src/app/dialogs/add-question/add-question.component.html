@@ -1,0 +1,15 @@
+<div ngClass="wrapper">
+
+  <div ngClass="selectWrapper">
+    <mat-form-field ngClass="formControl" appearance="outline">
+      <mat-label>Kurs</mat-label>
+      <!-- TODO: make this a group select (group by semester)-->
+      <!-- https://material.angular.io/components/select/overview -->
+      <mat-select [(value)]="selectedCourseId">
+        <mat-option [disabled]="true" ngClass="empty-select" value="-1">Bitte auswählen!</mat-option>
+        <mat-option ngClass="not-empty-select" *ngFor="let course of (courses | async)" value="{{course.id}}">{{course.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <app-add-mc-dialog ngClass="formContainer" [selectedCourse]="selectedCourseId"></app-add-mc-dialog>
+</div>
