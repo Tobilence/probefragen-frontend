@@ -1,9 +1,15 @@
-.answerOptionsWrapper {
+.wrapper {
   margin: 20px 0;
   min-width: 300px;
   display: flex;
   flex-direction: column;
   row-gap: 5px;
+  flex: 1;
+  height: 30vh;
+}
+
+.answerOptionWrapper {
+  flex: 1;
 }
 
 .answerOptionContainer {
@@ -62,4 +68,34 @@
   width: 100%;
   text-align: center;
   margin: 15px 0 0 0;
+}
+
+@media screen and (max-width: 840px) {
+
+  .wrapper {
+    width: 100%;
+    height: 90%;
+  }
+
+  .answerOptionsWrapper {
+    min-width: 100%;
+  }
+
+  .answerOptionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 0px;
+    margin: .7rem 0;
+  }
+
+  .checkbox {
+    width: 24px;
+    height: 24px;
+  }
+
+  .checkButton {
+    padding: 1rem 0;
+    font-size: larger;
+  }
 }

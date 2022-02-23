@@ -1,28 +1,32 @@
 <div ngClass="mainWrapper">
-  <div ngClass="infoLineWrapper title" *ngIf="course | async as course">
-    <div>
-      <span ngClass="infoLine" [style]="{'margin-right': '5px'}">{{course.name}}</span>
-      -
-      <span ngClass="infoLine" [style]="{'margin-left': '5px'}"> {{course.intendedSemester}}. Semester</span>
+  <div ngClass="rootFlex">
+    <div ngClass="infoLineWrapper title" *ngIf="course | async as course">
+      <div ngClass="infoLineItems">
+        <span ngClass="infoLine" [style]="{'margin-right': '5px'}">  {{course.name}}</span>
+        {{!(isHandset$ | async) ? "-" : ""}}
+        <span ngClass="infoLine">{{(isHandset$ | async) ? selectedQuestion == null ? "Fragensammlung: " : "" : course.intendedSemester + ". Semester"}}</span>
+      </div>
+      <span *ngIf="!(isHandset$ | async)" ngClass="actionCall" [routerLink]="['/add-question']" [queryParams]="{preselectedCourse: course.id}">Hilf anderen indem du selbst Fragen hinzufügst!</span>
     </div>
-    <span ngClass="actionCall" [routerLink]="['/add-question']" [queryParams]="{preselectedCourse: course.id}">Hilf anderen indem du selbst Fragen hinzufügst!</span>
-  </div>
 
-  <div ngClass="questionAreaWrapper" *ngIf="genericQuestions !== null && selectedQuestion === null">
-      <question-list-item
-        *ngFor="let question of genericQuestions"
-        [mcQuestion]="question"
-        (click)="handleQuestionSelect(question)"
-        routerLink="./"
-        [queryParams]="{question: question.id, mc: question.isMultipleChoice}"
+    <div ngClass="questionAreaWrapper" *ngIf="genericQuestions !== null && selectedQuestion === null">
+        <question-list-item
+          *ngFor="let question of genericQuestions"
+          [mcQuestion]="question"
+          (click)="handleQuestionSelect(question)"
+          routerLink="./"
+          [queryParams]="{question: question.id, mc: question.isMultipleChoice}"
+        >
+        </question-list-item>
+    </div>
+    <div ngClass="questionDetailWrapper" *ngIf="selectedQuestion !== null">
+      <question-detail-view
+        [genericQuestion]="selectedQuestion"
       >
-      </question-list-item>
+      </question-detail-view>
+    </div>
+    <div ngClass="actionCallButtonWrapper">
+      <button *ngIf="(isHandset$ | async)" ngClass="default-button actionCallButton" [routerLink]="['/add-question']" [queryParams]="{preselectedCourse: (course | async)!.id}">Hilf anderen indem du selbst Fragen hinzufügst!</button>
+    </div>
   </div>
-  <div ngClass="questionDetailWrapepr" *ngIf="selectedQuestion !== null">
-    <question-detail-view
-      [genericQuestion]="selectedQuestion"
-    >
-    </question-detail-view>
-
-</div>
 </div>

@@ -1,6 +1,7 @@
-<div ngClass="answerOptionsWrapper" *ngIf="mcQuestion != null">
+<div ngClass="wrapper" *ngIf="mcQuestion != null">
   <h2>{{mcQuestion!.questionText}}</h2>
-  <div *ngFor="let answerOption of mcQuestion!.answerOptions" ngClass="answerOptionContainer">
+  <div ngClass="answerOptionWrapper">
+    <div *ngFor="let answerOption of mcQuestion!.answerOptions" ngClass="answerOptionContainer">
       <div ngClass="answerOptionLine">
         <input (change)="checkboxChange(answerOption, $event)" #checkbox type="checkbox" ngClass="checkbox"/>
         <span
@@ -15,7 +16,8 @@
         {{isCorrect(answerOption.id!) ? "Richtige Antwort!" : "Leider falsch!"}}
       </small>
   </div>
-  <span *ngIf="showValidation || reviewMode" ngClass="pointText"> Du hast auf diese Frage <span [ngStyle]="{'color': pointPercentage >= 0.75 ? 'green' : 'red'}">{{pointPercentage}} Punkte </span> erhalten.</span>
+  </div>
+  <span *ngIf="showValidation || reviewMode" ngClass="pointText"> Du {{reviewMode ? "hast" : "hättest"}} auf diese Frage <span [ngStyle]="{'color': pointPercentage >= 0.75 ? 'green' : 'red'}">{{pointPercentage}} Punkte </span> erhalten.</span>
   <button *ngIf="!quizMode && !reviewMode && !showValidation" (click)="validateAnswers(true)" ngClass="checkButton">Prüfen</button>
   <button *ngIf="!quizMode && !reviewMode && showValidation" (click)="nextQuestion()" ngClass="checkButton">Nächste Frage</button>
   <button *ngIf="quizMode" (click)="nextQuestion()" ngClass="checkButton">Weiter</button>

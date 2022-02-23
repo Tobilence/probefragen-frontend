@@ -2,20 +2,19 @@
   <div ngClass="topUtilityLine">
     <span ngClass="text-link" routerLink="./" [queryParams]="{}">
         <mat-icon aria-label="Back to List View">arrow_back</mat-icon>
-        Zurück zur Listenansicht
+        zurück zur Fragensammlung
     </span>
-    <span>
+    <span *ngIf="!(isMobile$ |async)">
       Übungsmodus
     </span>
   </div>
 
   <!-- Question Answer -->
-  <div *ngIf="mcQuestion | async as mcQuestion">
-    <mc-question
-      [mcQuestion]="mcQuestion"
-    >
-    </mc-question>
-  </div>
+  <mc-question *ngIf="mcQuestion | async as mcQuestion"
+    ngClass="mcQuestion"
+    [mcQuestion]="mcQuestion"
+  >
+  </mc-question>
   <div *ngIf="openQuestion | async as openQuestion">
     Open
   </div>

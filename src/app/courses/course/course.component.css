@@ -1,12 +1,20 @@
 .mainWrapper {
   width: 90%;
   margin: 3% 5%;
-  height: 500px;
+}
+
+.rootFlex {
+  display: flex;
+  flex-direction: column;
 }
 
 .infoLineWrapper {
   display: flex;
   justify-content: space-between;
+}
+
+.infoLineItems {
+  display: block;
 }
 
 .infoLine {
@@ -20,6 +28,7 @@
   column-gap: 15px;
   row-gap: 15px;
   width: 100%;
+  flex-grow: 1;
 }
 
 .actionCall {
@@ -31,14 +40,82 @@
   cursor: pointer;
 }
 
+.actionCallButton {
+  background-color: var(--dark-blue);
+  margin: 10% auto 10% auto;
+  font-size: 1rem;
+  padding: .5rem .8rem;
+}
+
+.actionCallButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .actionCall:hover {
   color: #fff;
   background-color: #4ab2f2;
 }
 
-.questionDetailWrapepr {
-  padding: 2% 0;
+.questionDetailWrapper {
   display: flex;
-  width: 100%;
   justify-content: center;
+  flex-grow: 1;
+}
+
+@media screen and (max-width: 1200px) {
+  .questionAreaWrapper {
+    padding: 2% 0;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    column-gap: 15px;
+    row-gap: 15px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 840px) {
+
+  .mainWrapper {
+    min-height: 100vh;
+  }
+
+  .rootFlex {
+    min-height: 90vh;
+  }
+
+  .questionAreaWrapper {
+    padding: 2% 0;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    column-gap: 15px;
+    row-gap: 15px;
+    width: 100%;
+  }
+
+  .infoLineItems {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    row-gap: 1rem;
+    padding-bottom: .5rem;
+  }
+
+  .infoLine {
+    font-size: larger;
+    width: 100%;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .questionAreaWrapper {
+    padding: 2% 0;
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    column-gap: 15px;
+    row-gap: 15px;
+    width: 100%;
+  }
 }

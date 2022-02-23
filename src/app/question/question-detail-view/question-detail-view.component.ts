@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
+import { map, Observable, of, shareReplay, Subscription } from 'rxjs';
 import { Course } from 'src/app/core/course';
 import { MCAnswerOption } from 'src/app/core/mcanswer-option';
 import {Location} from '@angular/common';
@@ -9,6 +9,7 @@ import { OpenQuestion } from 'src/app/core/open-question';
 import { CourseComponent } from 'src/app/courses/course/course.component';
 import { CourseDetailService, GenericQuestion } from 'src/app/courses/service/course-detail.service';
 import { CourseService } from 'src/app/courses/service/course.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'question-detail-view',
@@ -24,7 +25,13 @@ export class QuestionDetailViewComponent implements OnInit {
 
   selectedQuestion$: Subscription | null = null
 
-  constructor(private _location: Location, private courseDetailService: CourseDetailService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  isMobile$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.TabletPortrait, Breakpoints.Handset])
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
+  constructor(private _location: Location, private courseDetailService: CourseDetailService, private router: Router, private activatedRoute: ActivatedRoute, private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
     if (this.genericQuestion!.isMultipleChoice) {

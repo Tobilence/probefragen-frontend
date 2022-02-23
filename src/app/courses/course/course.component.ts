@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, OnDestroy} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map, Observable, shareReplay, Subscription } from 'rxjs';
 import { Course } from 'src/app/core/course';
 import { CourseDetailService, GenericQuestion } from '../service/course-detail.service';
 import { CourseService } from '../service/course.service';
@@ -21,7 +22,13 @@ export class CourseComponent implements OnInit {
   private queryListener: Subscription | null = null;
   private routeListener: Subscription | null = null;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private courseService: CourseService, private courseDetailService: CourseDetailService) {}
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.TabletPortrait, Breakpoints.Handset])
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
+  constructor(private activatedRoute: ActivatedRoute, private breakpointObserver: BreakpointObserver, private courseService: CourseService, private courseDetailService: CourseDetailService) {}
 
   ngOnInit(): void {
 

@@ -19,7 +19,7 @@ export class CourseService {
 
   async loadCoursesIfNecessary(): Promise<Array<Course>> {
     if (this.courses.length === 0) {
-      let response = await fetch("http://localhost:8080/courses")
+      let response = await fetch(environment.BASE_URL + "/courses")
       this.courses = await response.json()
     }
     return this.courses;
