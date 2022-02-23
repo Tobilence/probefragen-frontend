@@ -17,19 +17,18 @@ export class CourseListComponent implements OnInit {
   constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
-    this.loadAsyncData()
-  }
-
-  async loadAsyncData()  {
-    this.courses = await this.courseService.getCourses()
-    this.courses.forEach(((course: Course, i: number) => {
-      let int = course.intendedSemester
-      if (this.mapped[int]) {
-        this.mapped[int].push(course)
-      } else {
-        this.mapped[int] = [course]
-      }
-    }))
-    this.mapped = Object.values(this.mapped)
+    this.courseService.getCourses()
+      .then(courses => {
+        this.courses = courses
+        this.courses.forEach(((course: Course, i: number) => {
+          let int = course.intendedSemester
+          if (this.mapped[int]) {
+            this.mapped[int].push(course)
+          } else {
+            this.mapped[int] = [course]
+          }
+        }))
+        this.mapped = Object.values(this.mapped)
+      })
   }
 }

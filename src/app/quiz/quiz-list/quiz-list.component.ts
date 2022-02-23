@@ -15,15 +15,17 @@ export class QuizListComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseService.loadCoursesIfNecessary().then(courses => {
-      this.courses = courses
+      this.courses = courses.sort((a, b) => {
+        return a.multipleChoiceQuestions.length < b.multipleChoiceQuestions.length ? 1 : -1
+      })
     })
   }
 
-  createContentText(course: Course) {
-    if (course.multipleChoiceQuestions.length < 10)
-      return "Zu wenige Fragen um ein Quiz durchzuführen!"
+  createContentText(questions: number) {
+    if (questions < 10)
+      return "Zu wenige Fragen um dieses Quiz durchzuführen! (" + questions + " Fragen)"
     else
-      return course.multipleChoiceQuestions.length + " Fragen"
+      return "Jetzt ein Quiz mit " + questions + " Fragen starten."
   }
 
   isValidQuiz(course: Course) {

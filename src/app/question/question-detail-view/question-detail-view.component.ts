@@ -41,8 +41,6 @@ export class QuestionDetailViewComponent implements OnInit {
     }
 
     this.selectedQuestion$ = this.courseDetailService.selectedQuestion.subscribe(question => {
-      console.log("hi")
-
       // Show different question
       this.mcQuestion = Promise.resolve(this.courseDetailService.getMCQuestion(question!.id))
       this.router.navigate(

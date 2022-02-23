@@ -12,7 +12,7 @@ export class CourseService {
 
   constructor() { }
 
-  getCourses() {
+  async getCourses():Promise<Array<Course>> {
     return this.loadCoursesIfNecessary()
   }
 
