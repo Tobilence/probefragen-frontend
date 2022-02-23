@@ -1,12 +1,23 @@
-<p>Quiz Done!</p>
-<p>{{score}}</p>
-<div *ngFor="let answer of givenAnswers">
-  <mc-question
-    [reviewMode]="true"
-    [mcQuestion]="generateMcQuestion(answer)"
-    [givenAnswers]="answer.givenAnswers"
-    [score]="answer.score"
-  >
-
-  </mc-question>
+<div ngClass="wrapper">
+  <div ngClass="container">
+    <h3 ngClass="title headline">Ergebnis</h3>
+    <div ngClass="gradeWrapper">
+      <span ngClass="gradeText bigger">Du hast <span ngClass="highlighted">{{score | number}} von {{givenAnswers.length}} </span> möglichen Punkten!</span>
+      <span ngClass="gradeText">Das entspricht <span ngClass="highlighted">{{(score / givenAnswers.length) * 100 | number}} Prozent </span></span>
+      <span ngClass="gradeText"> Bei einem standard Notenschlüsel ist dies eine <span ngClass="highlighted">{{calculateGrade()}}</span></span>
+    </div>
+    <div ngClass="questionDetails">
+      <span ngClass="title bigger"> Deine Antworten im Detail: </span>
+      <div *ngFor="let answer of givenAnswers">
+        <mc-question
+        [reviewMode]="true"
+        [mcQuestion]="generateMcQuestion(answer)"
+        [givenAnswers]="answer.givenAnswers"
+        [score]="answer.score"
+        >
+      </mc-question>
+      <div ngClass="divider"> </div>
+      </div>
+    </div>
+  </div>
 </div>

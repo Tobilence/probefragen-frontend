@@ -23,6 +23,15 @@ export class QuizViewComponent implements OnInit {
     // --
 
     this.progressSubscription = this.quizService.progress.subscribe((progress) => {
+      if (progress === -1) {
+        this.router.navigate(
+          [],
+          {
+            relativeTo: this.activatedRoute,
+            queryParams: { status: 'start' },
+            queryParamsHandling: 'merge'
+        })
+      }
       this.currentQuestion = this.quizService.getQuestionAt(progress)
     })
 

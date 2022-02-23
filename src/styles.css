@@ -9,6 +9,7 @@ html, body { height: 100%; }
   --washed-green: #A3C9A8;
   --green: #4CAF50;
   --divider-gray: #C8C8C8;
+  --orange: #F5B661;
 }
 
 body {
@@ -29,4 +30,22 @@ body {
   text-decoration: underline;
   color: var(--primary-blue);
   transition: all 0.5s;
+}
+
+.default-button {
+  background-color: var(--primary-blue);
+  margin: 25px 0 0 0;
+  color: white;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Avenir';
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .5s;
+}
+
+.default-button:hover {
+  background-color: var(--dark-blue);
 }

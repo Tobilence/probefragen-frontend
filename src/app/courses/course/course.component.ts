@@ -27,10 +27,8 @@ export class CourseComponent implements OnInit {
 
 
     this.routeListener = this.activatedRoute.paramMap.subscribe((params => {
-      console.log("Loading")
       this.courseService.loadCoursesIfNecessary()
       .then(() => {
-        console.log("Heyo")
         this.courseDetailService.init(+params.get('id')!)
         .then(() => {
           this.course = this.courseService.getCourseById(+params.get('id')!)

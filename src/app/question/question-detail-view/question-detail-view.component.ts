@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { Course } from 'src/app/core/course';
 import { MCAnswerOption } from 'src/app/core/mcanswer-option';
+import {Location} from '@angular/common';
 import { MCQuestion } from 'src/app/core/mcquestion';
 import { OpenQuestion } from 'src/app/core/open-question';
 import { CourseComponent } from 'src/app/courses/course/course.component';
@@ -23,7 +24,7 @@ export class QuestionDetailViewComponent implements OnInit {
 
   selectedQuestion$: Subscription | null = null
 
-  constructor(private courseDetailService: CourseDetailService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private _location: Location, private courseDetailService: CourseDetailService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     if (this.genericQuestion!.isMultipleChoice) {
@@ -33,6 +34,8 @@ export class QuestionDetailViewComponent implements OnInit {
     }
 
     this.selectedQuestion$ = this.courseDetailService.selectedQuestion.subscribe(question => {
+      console.log("hi")
+
       // Show different question
       this.mcQuestion = Promise.resolve(this.courseDetailService.getMCQuestion(question!.id))
       this.router.navigate(
@@ -43,6 +46,10 @@ export class QuestionDetailViewComponent implements OnInit {
           queryParamsHandling: 'merge'
       })
     })
+  }
+
+  previousQuestionClicked() {
+    this._location.back()
   }
 
   nextQuestionClicked() {

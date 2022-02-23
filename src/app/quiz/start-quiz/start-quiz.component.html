@@ -1,7 +1,23 @@
-DEMO Text lala
-<div *ngIf="!didLoad">
-  Quiz is Loading
-  Demo Text & disclaimer here
+<div ngClass="wrapper">
+  <div ngClass="content">
+    <span ngClass="headline title">Starte jetzt eine Probeprüfung</span>
+    <div>
+      <h3 ngClass="title">Ausgewähltes Fach: {{courseName}}</h3>
+      <h3 ngClass="explantationTitle title"> Beachte: </h3>
+      <ul ngClass="no-margin">
+        <li>Es gibt Teilpunkte</li>
+        <li>Sobald eine falsche Antwortmöglichkeit als richtig angekreuzt ist, gibt diese Frage 0 Punkte</li>
+      </ul>
+      <h3 ngClass="title withDisclaimer"> Notenschlüssel:</h3>
+      <span ngClass="disclaimer">Achtung: Dieser Notenschlüssel entspricht nicht zwingend dem bei der Prüfung! Biite schaue dafür im entsprechenden Moodle Kurs nach.</span>
+      <ul ngClass="explanationList">
+        <li> weniger als 60% -> 5 </li>
+        <li> 60% - 70% -> 4</li>
+        <li> 70% - 80% -> 3</li>
+        <li> 80% - 90% -> 2</li>
+        <li> 90% - 100% -> 1</li>
+      </ul>
+    </div>
+    <button [disabled]="!didLoad" ngClass="default-button buttonpos" routerLink="./" [queryParams]="{status: 'active'}">Start Quiz</button>
+  </div>
 </div>
-
-<button [disabled]="!didLoad" routerLink="./" [queryParams]="{status: 'active'}">Start Quiz</button>

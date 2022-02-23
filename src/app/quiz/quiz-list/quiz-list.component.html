@@ -1,0 +1,28 @@
+<div ngClass="wrapper">
+  <h1 ngClass="title">Starte jetzt ein Probequiz!</h1>
+  <div ngClass="quizItems">
+    <div
+      *ngFor="let course of courses"
+      ngClass="quizItemWrapper"
+      [routerLink]="['/quiz', course.id]"
+      [queryParams]="{'status': 'start'}"
+      [ngStyle]="{'background-color': isValidQuiz(course) ? 'var(--primary-blue)' : 'var(--divider-gray'}"
+    >
+      <div ngClass="colorLine">
+        <span ngClass="colorLineText title">{{course.name}}</span>
+      </div>
+      <span>{{course.multipleChoiceQuestions.length}} Fragen</span>
+      <button *ngIf="isValidQuiz(course)" ngClass="default-button small-margin valid-quiz">Quiz Starten</button>
+      <button
+        *ngIf="!isValidQuiz(course)"
+        routerLink="/add-question"
+        [queryParams]="{preselectedCourse: course.id}"
+        ngClass="default-button small-margin invalid-quiz"
+        [ngStyle]="{'background-color': isValidQuiz(course) ? 'white' : 'var(--navy-blue)'}"
+      >
+        Frage Hinzufügen
+      </button>
+  </div>
+
+  </div>
+</div>

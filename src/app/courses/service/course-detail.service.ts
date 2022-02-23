@@ -21,6 +21,8 @@ export class CourseDetailService {
 
   selectedQuestion: ReplaySubject<GenericQuestion | null> = new ReplaySubject()
 
+  nextQuestions: Array<GenericQuestion> = []
+
   constructor(private couseService: CourseService) { }
 
   // initializes all attributes for the course
@@ -29,6 +31,7 @@ export class CourseDetailService {
     this.mcQuestions = course.multipleChoiceQuestions
     this.openQuestions = course.openEndedQuestions
     this.courseId.next(courseId)
+    this.nextQuestions = this.getShuffledGenericQuestions()
   }
 
   getShuffledGenericQuestions(): Array<GenericQuestion> {

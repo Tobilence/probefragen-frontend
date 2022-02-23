@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { BehaviorSubject, EMPTY, Observable, of, Subscription } from 'rxjs';
 import { MCAnswerOption } from 'src/app/core/mcanswer-option';
 import { MCQuestion } from 'src/app/core/mcquestion';
+import { CourseDetailService } from 'src/app/courses/service/course-detail.service';
 import { QuizService } from 'src/app/quiz/quiz.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class McQuestionComponent implements OnInit {
 
   progressSubscription: Subscription | null = null
 
-  constructor(private quizService: QuizService) { }
+  constructor(private quizService: QuizService, private courseDetailService: CourseDetailService) { }
 
   ngOnInit(): void {
     if (this.givenAnswers === null) {
@@ -76,7 +77,8 @@ export class McQuestionComponent implements OnInit {
   // handles the next Press in quiz Mode
   nextQuestion() {
     if (!this.quizMode) {
-      throw new Error("Method should only be called in Quiz mode!")
+      this.courseDetailService.nextQuestion()
+      return
     }
     this.validateAnswers(false)
 
