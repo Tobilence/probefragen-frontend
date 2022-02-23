@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { MCQuestion } from 'src/app/core/mcquestion';
@@ -15,12 +15,19 @@ export class QuizViewComponent implements OnInit {
   progressSubscription: Subscription | null = null
   finishedSubscription: Subscription | null = null
 
+  timer: number = 0
+  interval: any
+
   constructor(private quizService: QuizService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     // testing Purpose --
     // this.quizService.loadQuiz(1, 5)
     // --
+
+    this.interval = setInterval(() => {
+      this.timer += 1000
+    }, 1000)
 
     this.progressSubscription = this.quizService.progress.subscribe((progress) => {
       if (progress === -1) {
@@ -37,6 +44,7 @@ export class QuizViewComponent implements OnInit {
 
     this.finishedSubscription = this.quizService.quizDone.subscribe(isDone => {
       if (isDone) {
+        this.quizService.totalTime = this.timer / 1000
         this.router.navigate(
           [],
           {
@@ -51,5 +59,9 @@ export class QuizViewComponent implements OnInit {
   // gety applied to progressbar width
   calculateProgress(): string {
     return this.quizService.calculateProgressPercentage() + "%"
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timer)
   }
 }

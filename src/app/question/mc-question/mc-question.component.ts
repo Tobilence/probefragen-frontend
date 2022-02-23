@@ -3,6 +3,7 @@ import { BehaviorSubject, EMPTY, Observable, of, Subscription } from 'rxjs';
 import { MCAnswerOption } from 'src/app/core/mcanswer-option';
 import { MCQuestion } from 'src/app/core/mcquestion';
 import { CourseDetailService } from 'src/app/courses/service/course-detail.service';
+import { shuffle } from 'src/app/helpers/Shuffle';
 import { QuizService } from 'src/app/quiz/quiz.service';
 
 @Component({
@@ -27,11 +28,13 @@ export class McQuestionComponent implements OnInit {
     if (this.givenAnswers === null) {
       if (this.quizMode) {
         // Quiz Mode
+        this.mcQuestion!.answerOptions = shuffle(this.mcQuestion!.answerOptions)
         this.quizService.progress.subscribe(progress => {
           this.givenAnswers = this.quizService.getQuestionAt(progress).answerOptions.map((opt) => ({id: opt.id!, givenAnswer: false, evaluation: undefined }))
         })
       } else {
         // Practice Mode
+        this.mcQuestion!.answerOptions = shuffle(this.mcQuestion!.answerOptions)
         this.givenAnswers = this.mcQuestion!.answerOptions.map((ans) => ({id: ans.id!, givenAnswer: false, evaluation: undefined}))
       }
     }

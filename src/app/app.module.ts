@@ -28,6 +28,7 @@ import { QuizViewComponent } from './quiz/quiz-view/quiz-view.component';
 import { QuizControllerComponent } from './quiz/quiz-controller/quiz-controller.component';
 import { QuizDoneComponent } from './quiz/quiz-done/quiz-done.component';
 import { QuizListComponent } from './quiz/quiz-list/quiz-list.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [

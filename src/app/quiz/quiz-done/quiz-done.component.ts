@@ -47,4 +47,12 @@ export class QuizDoneComponent implements OnInit {
     }
     return 1
   }
+
+  calculateTotalTime() {
+    return this.quizService.totalTime * 1000
+  }
+
+  calculateQuestionAverageTime() {
+    return (this.quizService.totalTime / this.quizService.answeredQuestions.length) * 1000
+  }
 }

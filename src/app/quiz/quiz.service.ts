@@ -19,6 +19,7 @@ export class QuizService {
   answeredQuestions: Array<AnsweredMCQuestion> = []
 
   totalScore: number = 0
+  totalTime: number = -1
 
   quizDone: EventEmitter<boolean> = new EventEmitter()
 

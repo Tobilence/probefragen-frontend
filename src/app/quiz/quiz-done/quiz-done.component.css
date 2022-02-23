@@ -47,3 +47,15 @@ font-size: 1.1rem;
   width: 100%;
   border-bottom: 1px solid var(--divider-gray);
 }
+
+@media screen and (max-width: 840px) {
+
+  .container {
+    width: 100%;
+  }
+
+  .questionDetails {
+    width: 100%;
+    margin: 5rem auto;
+  }
+}

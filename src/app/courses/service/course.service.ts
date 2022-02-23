@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Course } from 'src/app/core/course';
 import { MCQuestion } from 'src/app/core/mcquestion';
-import { Question } from 'src/app/core/question';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

@@ -101,3 +101,34 @@ button {
 button:hover {
   background-color: var(--green);
 }
+
+.snackbar {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  width: 275px;
+  text-align: center;
+  padding: 1.5rem 3rem;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  color: white;
+  transition: all 1s;
+}
+
+@media screen and (max-width: 840px) {
+
+  .form {
+    width: 90%;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .addMCQuestionButton {
+    width: 78%;
+    padding: 7px 20px;
+  }
+
+  .submitButton {
+    margin-bottom: 1rem;
+  }
+}

@@ -27,20 +27,57 @@
   margin: 5px 0;
 }
 
-.no-margin {
+.beCarefulList {
   margin: 0;
 }
 
-.buttonpos {
+.startButton {
   width: 30%;
+  padding: 0.7rem 3rem 0.7rem 3rem;
+  font-size: 1rem;
 }
 
 .disclaimer {
-  font-size: .8rem;
+  font-size: .9rem;
   font-family: 'Avenir';
   margin: 10px 0;
 }
 
+.sectionTitle {
+  font-size: 1.3rem;
+}
+
 .withDisclaimer {
   margin: 10px 0 0 0;
+}
+
+.notes {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 840px) {
+  .content {
+    width: 90%;
+  }
+
+  .headline {
+    line-height: 1.8rem;
+    font-size: 1.4rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+
+
+  .disclaimer {
+    font-size: 1rem;
+    font-family: 'Avenir';
+    margin: 10px 0;
+  }
+
+  .startButton {
+    padding: 0.7rem 3rem 0.7rem 3rem;
+    width: 50%;
+  }
 }

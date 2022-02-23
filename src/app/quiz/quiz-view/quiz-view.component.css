@@ -6,12 +6,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 80%;
 }
 
 .infoLineWrapper {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.mcQuestionWrapper {
+  flex: 1
 }
 
 /* Layout */
@@ -41,4 +46,11 @@
   font-size: x-small;
   padding-right: 0px;
   width: 10px;
+}
+
+@media screen and (max-width: 840px) {
+
+  .wrapper {
+    width: 90%;
+  }
 }

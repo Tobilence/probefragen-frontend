@@ -12,6 +12,7 @@
 
 .formControl {
   margin-top: 50px;
+  width: 37%;
 }
 
 .inputLabel {
@@ -20,4 +21,21 @@
 
 .not-empty-select.mat-selected {
   color: var(--primary-blue) !important;
+}
+
+@media screen and (max-width: 840px) {
+
+  .wrapper {
+    padding: 0;
+  }
+
+  .selectWrapper {
+    width: 90%;
+    margin: 2rem auto 0 auto;
+  }
+
+  .formControl {
+    margin-top: 0;
+    width: 100%;
+  }
 }

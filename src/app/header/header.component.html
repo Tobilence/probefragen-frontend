@@ -5,10 +5,10 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar color="primary" ngClass="sideNav-Header">Menü</mat-toolbar>
-    <mat-nav-list>
-        <a class="link" >Kurse</a>
-        <a class="link" >Quizzes</a>
-        <a class="link" >Erstellen</a>
+    <mat-nav-list ngClass="sidenav-menu">
+        <a class="link title" routerLink="/courses">Kurse</a>
+        <a class="link title" routerLink="/quiz">Quizzes</a>
+        <a class="link title highlighted" routerLink="/add-question">Erstellen</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

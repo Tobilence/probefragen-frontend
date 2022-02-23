@@ -10,6 +10,9 @@
 
 .answerOptionWrapper {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
 }
 
 .answerOptionContainer {
@@ -30,9 +33,7 @@
 }
 
 .answerOptionText {
-  font-size: 14px;
-  margin-bottom: 3px;
-  height: 16px;
+  font-size: 1rem;
   cursor: default;
 }
 
@@ -85,7 +86,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    row-gap: 0px;
+    row-gap: 10px;
     margin: .7rem 0;
   }
 

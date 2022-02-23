@@ -6,6 +6,12 @@
   width: 200px;
 }
 
+.sidenav-menu {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
 .sideNav-Header {
   background-color: #4ab2f2;
 }

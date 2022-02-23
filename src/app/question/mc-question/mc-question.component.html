@@ -3,17 +3,17 @@
   <div ngClass="answerOptionWrapper">
     <div *ngFor="let answerOption of mcQuestion!.answerOptions" ngClass="answerOptionContainer">
       <div ngClass="answerOptionLine">
-        <input (change)="checkboxChange(answerOption, $event)" #checkbox type="checkbox" ngClass="checkbox"/>
+        <input (change)="checkboxChange(answerOption, $event)" #checkbox type="checkbox" ngClass="checkbox" [disabled]="reviewMode || showValidation"/>
         <span
           (click)="answerOptionClicked(answerOption)"
           ngClass="answerOptionText"
-          [ngStyle]="{'color': isCorrect(answerOption.id!) === undefined ? 'black' : isCorrect(answerOption.id!) ? 'green' : 'red'}"
+          [ngStyle]="{'color': quizMode || !showValidation ? 'black' : answerOption.isCorrect ? 'green' : 'red'}"
         >
           {{answerOption.answerText}}
         </span>
       </div>
       <small ngClass="validationText" *ngIf="showValidation || reviewMode" >
-        {{isCorrect(answerOption.id!) ? "Richtige Antwort!" : "Leider falsch!"}}
+        {{isCorrect(answerOption.id!) ? "Richtig geantwortet!" : "Falsch geantwortet!"}}
       </small>
   </div>
   </div>
