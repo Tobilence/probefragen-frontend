@@ -18,6 +18,7 @@ export class CourseService {
 
   async loadCoursesIfNecessary(): Promise<Array<Course>> {
     if (this.courses.length === 0) {
+      console.log("Fetching with BASE_URL: ", environment.BASE_URL)
       let response = await fetch(environment.BASE_URL + "/courses")
       this.courses = await response.json()
     }
@@ -31,7 +32,7 @@ export class CourseService {
 
   async saveQuestion(question: MCQuestion, courseId: number): Promise<MCQuestion> {
     const body: any = {...question, courseId}
-
+    console.log("Saving Question with BASE_URL: ", environment.BASE_URL)
     let result = await fetch(environment.BASE_URL + "/questions/mc", {
       headers: {
         "Content-Type": "application/json"

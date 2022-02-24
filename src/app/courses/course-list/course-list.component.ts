@@ -12,7 +12,7 @@ export class CourseListComponent implements OnInit {
 
   courses: any[] = []
 
-  mapped: any = []
+  mapped: any[] = []
 
   constructor(private courseService: CourseService) { }
 
