@@ -59,7 +59,7 @@
   <button type="submit" ngClass="submitButton">Frage Speichern</button>
 
   <!-- Snackbar Message -->
-  <div ngClass="snackbar" *ngIf="snackbarDetails !== null" [ngStyle]="{'backgroundColor': snackbarDetails.color, 'opacity': snackbarDetails === null ? '0' : '1'}">
-      {{snackbarDetails.message}}
+  <div ngClass="snackbar" [ngStyle]="{'backgroundColor': snackbarDetails?.color, 'opacity': snackbarDetails === null ? '0' : '1'}">
+      {{snackbarDetails?.message}}
   </div>
 </form>

@@ -2,11 +2,11 @@
   <div ngClass="container">
     <h3 ngClass="title headline">Ergebnis</h3>
     <div ngClass="gradeWrapper">
-      <span ngClass="gradeText bigger">Du hast <span ngClass="highlighted">{{score | number}} von {{givenAnswers.length}} </span> möglichen Punkten!</span>
-      <span ngClass="gradeText">Das entspricht <span ngClass="highlighted">{{(score / givenAnswers.length) * 100 | number}} Prozent </span></span>
-      <span ngClass="gradeText"> Bei unserem Standard-Notenschlüsel ist dies eine <span ngClass="highlighted">{{calculateGrade()}}</span></span>
-      <span ngClass="gradeText"> Insgesamt hast du <span ngClass="highlighted"> {{calculateTotalTime() | date:"mm:ss"}} Minuten </span> gebraucht. </span>
-      <span ngClass="gradeText"> Das sind <span ngClass="highlighted">{{calculateQuestionAverageTime() | date:"mm:ss"}} Minuten pro Fragen</span></span>
+      <span ngClass="gradeText bigger">Du hast <span [ngStyle]="{'color': highlightGradeColor()}">{{score | number}} von {{givenAnswers.length}} </span> möglichen Punkten!</span>
+      <span ngClass="gradeText">Das entspricht <span [ngStyle]="{'color': highlightGradeColor()}">{{(score / givenAnswers.length) * 100 | number}} Prozent </span></span>
+      <span ngClass="gradeText"> Bei unserem Standard-Notenschlüsel ist dies eine <span [ngStyle]="{'color': highlightGradeColor()}">{{calculateGrade()}}</span></span>
+      <span ngClass="gradeText"> Insgesamt hast du <span [ngStyle]="{'color': highlightTimeColor()}"> {{calculateTotalTime() | date:"mm:ss"}} Minuten </span> gebraucht. </span>
+      <span ngClass="gradeText"> Das sind <span [ngStyle]="{'color': highlightTimeColor()}">{{calculateQuestionAverageTime() | date:"mm:ss"}} Minuten pro Fragen</span></span>
     </div>
     <div ngClass="questionDetails">
       <span ngClass="title bigger"> Deine Antworten im Detail: </span>

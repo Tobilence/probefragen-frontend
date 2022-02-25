@@ -54,28 +54,30 @@
   background-color: #2b8ac4;
 }
 
-.actionButton:hover {
-  background-color: #885A89 !important;
-}
-
 .icon {
   position: absolute;
   left: 2rem;
   bottom: 1.5rem;
   transform: scale(2);
-  color: var(--dark-blue);
+  color: #2b8ac4;
 }
 
 .valid-quiz {
-
+  background-color: white;
+  color: black;
 }
 .valid-quiz:hover {
-  background-color: #885A89;
+  color: white;
+  background-color: #4CAF50;
 }
 
 .invalid-quiz {
   color: white;
   background-color: #2b8ac4 !important;
+}
+
+.invalid-quiz:hover {
+  background-color: #885A89 !important;
 }
 
 

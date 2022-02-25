@@ -61,10 +61,6 @@ export class CourseComponent implements OnInit {
     })
   }
 
-  log() {
-    console.log(this.genericQuestions)
-  }
-
   handleQuestionSelect(question: GenericQuestion) {
     // TODO (add / remove course viewed questions)
   }

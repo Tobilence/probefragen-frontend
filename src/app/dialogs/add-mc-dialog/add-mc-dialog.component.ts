@@ -23,6 +23,19 @@ export class AddMcDialogComponent implements OnInit {
   }
 
   onSubmit(form: any) {
+    // check how many questions were marked correct
+    let numberOfCorrect = this.question.answerOptions.filter(a => a.isCorrect).length
+    if (numberOfCorrect === this.question.answerOptions.length) {
+      this.showSnackbar({ message: "Es muss mindestens eine Antwortmöglichkeit als falsch markiert sein!", color: "#f24141"}, 2500)
+      return
+    }
+
+    if (numberOfCorrect === 0) {
+      this.showSnackbar({ message: "Es muss mindestens eine Antwortmöglichkeit als richtig markiert sein!", color: "#f24141"}, 2500)
+      return
+    }
+
+    // check if every question has a text
     this.question.answerOptions.forEach((option) => {
       if (option.answerText == "") {
         this.showSnackbar({ message: "Bitte fülle alle Antwortmöglichkeiten aus!", color: "#f24141"}, 2500)
@@ -30,11 +43,13 @@ export class AddMcDialogComponent implements OnInit {
       }
     })
 
+    // Check if form is invalid
     if(form.status == "INVALID") {
-      this.showSnackbar({ message: "Bitte fülle alle Antowrtfelder aus!", color: "#f24141"}, 2500)
+      this.showSnackbar({ message: "Bitte fülle alle Antwortfelder aus!", color: "#f24141"}, 2500)
       return
     }
 
+    // check if a course was selected
     if(this.selectedCourse == -1) {
       this.showSnackbar({ message: "Bitte wähle eine VO aus, zu der diese Frage dazugehört!", color: "#f24141"}, 2500)
       return
@@ -43,6 +58,8 @@ export class AddMcDialogComponent implements OnInit {
     const body = { ...this.question, courseId: this.selectedCourse}
     this.courseService.saveQuestion(this.question, this.selectedCourse)
       .then(() => {
+        form.reset()
+        this.question =  new MCQuestion(null, "", "", null, [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
         this.showSnackbar({ message: "Die Frage wurde erfolgreich gespeichert!", color: "var(--green)"}, 2500)
       })
       .catch(() => {

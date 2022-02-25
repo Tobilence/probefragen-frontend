@@ -55,4 +55,23 @@ export class QuizDoneComponent implements OnInit {
   calculateQuestionAverageTime() {
     return (this.quizService.totalTime / this.quizService.answeredQuestions.length) * 1000
   }
+
+  highlightGradeColor() {
+    let quizLength = this.quizService.answeredQuestions.length
+    if (this.score < quizLength / 2)
+      return 'red'
+    if (this.score < quizLength * 0.75)
+      return 'orange'
+    return 'green'
+  }
+
+  highlightTimeColor() {
+
+    let averageAnswerTime = this.calculateQuestionAverageTime() / 1000
+    if (averageAnswerTime > 3*60)
+      return 'red'
+    if (averageAnswerTime > 2*60)
+      return 'orange'
+    return 'green'
+  }
 }

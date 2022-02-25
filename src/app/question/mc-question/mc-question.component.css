@@ -38,8 +38,8 @@
 }
 
 .checkbox {
-  width: 16px;
-  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
   cursor: pointer;
 }
 
@@ -75,6 +75,7 @@
 
   .wrapper {
     width: 100%;
+    min-height: 90%;
     height: 90%;
   }
 
@@ -91,8 +92,8 @@
   }
 
   .checkbox {
-    width: 24px;
-    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
   }
 
   .checkButton {

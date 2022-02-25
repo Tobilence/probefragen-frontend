@@ -1,13 +1,13 @@
 <div ngClass="wrapper" *ngIf="mcQuestion != null">
   <h2>{{mcQuestion!.questionText}}</h2>
   <div ngClass="answerOptionWrapper">
-    <div *ngFor="let answerOption of mcQuestion!.answerOptions" ngClass="answerOptionContainer">
+    <div *ngFor="let answerOption of mcQuestion!.answerOptions, let idx = index" ngClass="answerOptionContainer">
       <div ngClass="answerOptionLine">
-        <input (change)="checkboxChange(answerOption, $event)" #checkbox type="checkbox" ngClass="checkbox" [disabled]="reviewMode || showValidation"/>
+        <input (change)="checkboxChange(answerOption, $event)" #checkbox type="checkbox" ngClass="checkbox" [checked]="givenAnswers![idx].givenAnswer" [disabled]="reviewMode || showValidation"/>
         <span
           (click)="answerOptionClicked(answerOption)"
           ngClass="answerOptionText"
-          [ngStyle]="{'color': quizMode || !showValidation ? 'black' : answerOption.isCorrect ? 'green' : 'red'}"
+          [ngStyle]="{'color': quizMode || (!showValidation && !reviewMode) ? 'black' : answerOption.isCorrect ? 'green' : 'red'}"
         >
           {{answerOption.answerText}}
         </span>
@@ -17,7 +17,8 @@
       </small>
   </div>
   </div>
-  <span *ngIf="showValidation || reviewMode" ngClass="pointText"> Du {{reviewMode ? "hast" : "hättest"}} auf diese Frage <span [ngStyle]="{'color': pointPercentage >= 0.75 ? 'green' : 'red'}">{{pointPercentage}} Punkte </span> erhalten.</span>
+  <span *ngIf="showValidation || reviewMode" ngClass="pointText"> Du {{reviewMode ? "hast" : "hättest"}} auf diese Frage <span [ngStyle]="{'color': pointPercentage >= 0.75 ? 'green' : 'red'}">{{pointPercentage | number}} Punkte </span> erhalten.</span>
+  <span *ngIf="(showValidation || reviewMode) && mcQuestion.source !== ''" ngClass="pointText"> Lösung zu dieser Frage findest du hier: {{mcQuestion.source}}</span>
   <button *ngIf="!quizMode && !reviewMode && !showValidation" (click)="validateAnswers(true)" ngClass="checkButton">Prüfen</button>
   <button *ngIf="!quizMode && !reviewMode && showValidation" (click)="nextQuestion()" ngClass="checkButton">Nächste Frage</button>
   <button *ngIf="quizMode" (click)="nextQuestion()" ngClass="checkButton">Weiter</button>

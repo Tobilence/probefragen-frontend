@@ -43,7 +43,6 @@ export class McQuestionComponent implements OnInit {
   checkboxChange(answerOption: MCAnswerOption, event: any) {
     let state = event.target.checked
     this.givenAnswers!.filter(a => a.id === answerOption.id)[0].givenAnswer = state
-    console.log(this.givenAnswers)
   }
 
   answerOptionClicked(answerOption: MCAnswerOption) {
@@ -70,7 +69,9 @@ export class McQuestionComponent implements OnInit {
       if (markedTooMany) {
         this.pointPercentage = 0
       } else {
-        this.pointPercentage = numOfCorrectAnswers / this.givenAnswers!.length
+        let correctAnswers = this.mcQuestion!.answerOptions.filter(mc => mc.isCorrect).length
+        let markedAnswers = this.givenAnswers!.filter(a => a.givenAnswer && a.evaluation).length
+        this.pointPercentage = markedAnswers / correctAnswers
       }
 
       // todo - maybe this exectues too early
@@ -90,7 +91,6 @@ export class McQuestionComponent implements OnInit {
       score: this.pointPercentage,
       givenAnswers: this.givenAnswers!.map(g => ({id: g.id, givenAnswer: g.givenAnswer, evaluation: g.evaluation!}))
     }
-    console.log("in sub", answer.score)
     this.quizService.submitAnswer(answer)
     this.quizService.requestNextQuestion()
   }

@@ -20,11 +20,13 @@ export class StartQuizComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
 
       this.courseService.loadCoursesIfNecessary().then((courses) => {
-        this.courseName = courses.filter(c => c.id == +params.get('id')!)[0].name
-      })
+        let course = courses.filter(c => c.id == +params.get('id')!)[0]
+        this.courseName = course.name
 
-      this.quizService.loadQuiz(+params.get('id')!, 5)
-        .then(() => this.didLoad = true)
+        let quizSize = course.multipleChoiceQuestions.length >= 30 ? 30 : course.multipleChoiceQuestions.length
+        this.quizService.loadQuiz(+params.get('id')!, quizSize)
+          .then(() => this.didLoad = true)
+      })
     })
   }
 }

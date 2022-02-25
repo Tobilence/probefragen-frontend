@@ -109,7 +109,7 @@ button:hover {
   width: 275px;
   text-align: center;
   padding: 1.5rem 3rem;
-  transform: translateX(-50%);
+  transform: translate(-50%);
   border-radius: 10px;
   color: white;
   transition: all 1s;

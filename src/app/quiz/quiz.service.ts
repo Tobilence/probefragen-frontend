@@ -46,7 +46,6 @@ export class QuizService {
   }
 
   submitAnswer(answer: AnsweredMCQuestion) {
-    console.log("submit")
     this.totalScore += answer.score
     this.answeredQuestions.push(answer)
   }
@@ -61,9 +60,5 @@ export class QuizService {
 
   getQuestionById(id: number) {
     return this.quiz.filter((q) => q.id === id)[0]
-  }
-
-  log() {
-    console.log("done",this.answeredQuestions)
   }
 }
