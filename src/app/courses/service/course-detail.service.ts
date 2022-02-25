@@ -85,4 +85,12 @@ export class CourseDetailService {
 
     return array;
   }
+
+  deinit() {
+    this.courseId = new BehaviorSubject(-1)
+    this.mcQuestions = []
+    this.openQuestions = []
+    this.selectedQuestion = new ReplaySubject()
+    this.nextQuestions = []
+  }
 }

@@ -55,11 +55,17 @@ export class AddMcDialogComponent implements OnInit {
       return
     }
 
+    // check if there are enough answer options (>= 3)
+    if (this.question.answerOptions.length < 3) {
+      this.showSnackbar({ message: "Es muss mindestens 3 Antwortmöglichkeiten geben!", color: "#f24141"}, 2500)
+      return
+    }
+
     const body = { ...this.question, courseId: this.selectedCourse}
     this.courseService.saveQuestion(this.question, this.selectedCourse)
       .then(() => {
-        form.reset()
         this.question =  new MCQuestion(null, "", "", null, [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
+        form.reset()
         this.showSnackbar({ message: "Die Frage wurde erfolgreich gespeichert!", color: "var(--green)"}, 2500)
       })
       .catch(() => {

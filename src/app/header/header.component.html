@@ -6,9 +6,9 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar color="primary" ngClass="sideNav-Header">Menü</mat-toolbar>
     <mat-nav-list ngClass="sidenav-menu">
-        <a class="link title" routerLink="/courses">Kurse</a>
-        <a class="link title" routerLink="/quiz">Quizzes</a>
-        <a class="link title highlighted" routerLink="/add-question">Erstellen</a>
+        <a class="link title" routerLink="/courses" [queryParams]="{}">Kurse</a>
+        <a class="link title" routerLink="/quiz" [queryParams]="{}">Quizzes</a>
+        <a class="link title highlighted" routerLink="/add-question" [queryParams]="{}">Erstellen</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -21,12 +21,12 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <img ngClass="logo" src="../../assets/logo.png" alt="Probefragen.at" routerLink="/courses" />
+      <img ngClass="logo" src="../../assets/logo.svg" alt="Probefragen.at" routerLink="/courses" />
       <span class="spacer"></span>
       <div *ngIf="(isHandset$ | async) === false">
-        <a class="link title" routerLink="/courses">Kurse</a>
-        <a class="link title" routerLink="/quiz">Quizzes</a>
-        <a class="link title highlighted" routerLink="/add-question">Erstellen</a>
+        <a class="link title" routerLink="/courses" [queryParams]="{}">Kurse</a>
+        <a class="link title" routerLink="/quiz" [queryParams]="{}">Quizzes</a>
+        <a class="link title highlighted" routerLink="/add-question" [queryParams]="{}">Erstellen</a>
       </div>
     </div>
     <ng-content></ng-content>

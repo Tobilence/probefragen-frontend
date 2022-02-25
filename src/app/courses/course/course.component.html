@@ -10,6 +10,7 @@
     </div>
 
     <div ngClass="questionAreaWrapper" *ngIf="genericQuestions !== null && selectedQuestion === null">
+        <span *ngIf="genericQuestions.length == 0" ngClass="no-questions-placholder"> Es gibt noch keine Fragen! Sei der/die erste, der/die Fragen hinzufügt!</span>
         <question-list-item
           *ngFor="let question of genericQuestions"
           [mcQuestion]="question"

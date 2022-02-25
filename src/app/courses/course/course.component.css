@@ -1,11 +1,13 @@
 .mainWrapper {
   width: 90%;
   margin: 3% 5%;
+  min-height: 90%;
 }
 
 .rootFlex {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
 }
 
 .infoLineWrapper {

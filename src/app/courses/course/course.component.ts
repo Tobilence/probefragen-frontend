@@ -31,8 +31,6 @@ export class CourseComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private breakpointObserver: BreakpointObserver, private courseService: CourseService, private courseDetailService: CourseDetailService) {}
 
   ngOnInit(): void {
-
-
     this.routeListener = this.activatedRoute.paramMap.subscribe((params => {
       this.courseService.loadCoursesIfNecessary()
       .then(() => {
@@ -66,6 +64,8 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    this.selectedQuestion = null
+    this.courseDetailService.deinit()
     this.selectedQuestion$?.unsubscribe()
     this.queryListener?.unsubscribe()
     this.routeListener?.unsubscribe()
