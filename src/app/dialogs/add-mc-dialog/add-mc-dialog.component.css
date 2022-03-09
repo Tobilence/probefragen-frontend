@@ -3,7 +3,7 @@
   padding: 0 50px;
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 10px;
 }
 
 .formControl {
@@ -113,6 +113,33 @@ button:hover {
   border-radius: 10px;
   color: white;
   transition: all 1s;
+}
+
+.badgeWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.badgeCheckbox {
+  width: 24px;
+  height: 24px;
+}
+
+.additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+.tagSelection {
+  margin: 0;
+  padding: 0;
+}
+
+.mat-form-field-wrapper {
+  padding: 0;
 }
 
 @media screen and (max-width: 840px) {

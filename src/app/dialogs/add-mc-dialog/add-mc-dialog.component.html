@@ -14,6 +14,29 @@
     <small *ngIf="!questionText.valid && questionText.touched" ngClass="error"> Fragestellung ist ein Pflichtfeld</small>
   </div>
 
+  <!-- Question Tags -->
+  <mat-form-field appearance="fill" *ngIf="availableTags.value.length > 0" appearance="outline" ngClass="tagSelection">
+    <mat-label>Tags (empfohlen)</mat-label>
+    <mat-select [(value)]="question.tags" multiple>
+      <mat-select-trigger>
+        {{question.tags.length > 0 ? question.tags[0].name : ''}}
+        {{question.tags.length > 1 ? ', ' : ''}}
+        {{question.tags.length > 1 ? question.tags[1].name : ''}}
+        <span *ngIf="question.tags.length > 2" ngClass="additional-selection">
+          (+ {{+(question.tags.length - 2)}} mehr)
+        </span>
+      </mat-select-trigger>
+      <mat-option *ngFor="let tag of availableTags.value" [value]="tag">{{tag.name}}</mat-option>
+    </mat-select>
+    <small *ngIf="question.tags.length == 0">Tags helfen uns, deine Frage zu kategorisieren!</small>
+  </mat-form-field>
+
+  <!-- Badge -->
+  <div ngClass="badgeWrapper">
+    <input (change)="onBadgeChanged($event)" ngClass="badgeCheckbox" name="badgeChecked" type="checkbox" />
+    <label> Diese Frage ist eine Altfrage</label>
+  </div>
+
   <!-- Question Source -->
   <div ngClass="formControl">
     <label for="questionSource" ngClass="inputLabel title">Teile deine Antwort! (Optional)</label>
@@ -22,7 +45,7 @@
       type="text"
       name="questionSource"
       id="questionSource"
-      placeholder="Eigene Erklärung, Skript Seite, oder Antwort-Link? Egal was, alles ist hilfreich!"
+      placeholder="Eigene Erklärung, Skript Seite, oder Antwort-Link? Alles ist hilfreich!"
       #questionSource="ngModel"
     />
   </div>

@@ -36,9 +36,6 @@ export class CourseDetailService {
 
   getShuffledGenericQuestions(): Array<GenericQuestion> {
     let result: Array<GenericQuestion> = []
-    this.openQuestions.forEach(q => {
-      result.push({id: q.id, isMultipleChoice: false, questionText: q.questionText})
-    })
     this.mcQuestions.forEach(q => {
       result.push({id: q.id!, isMultipleChoice: true, questionText: q.questionText})
     })

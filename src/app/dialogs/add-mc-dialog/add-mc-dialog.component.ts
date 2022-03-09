@@ -4,6 +4,8 @@ import { MCAnswerOption } from 'src/app/core/mcanswer-option';
 import { MCQuestion } from 'src/app/core/mcquestion';
 import { CourseService } from 'src/app/courses/service/course.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { BehaviorSubject } from 'rxjs';
+import { QuestionTag } from 'src/app/core/question-tag';
 
 @Component({
   selector: 'app-add-mc-dialog',
@@ -13,16 +15,22 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class AddMcDialogComponent implements OnInit {
 
   @Input() selectedCourse: number = -1
-  question: MCQuestion = new MCQuestion(null, "", "", null, [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
-
+  question: MCQuestion = new MCQuestion(null, "", "", null, [], [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
   snackbarDetails: {message: string, color: string} | null = null
+
+  @Input() availableTags:BehaviorSubject<Array<QuestionTag>> = new BehaviorSubject<Array<QuestionTag>>([])
 
   constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
+    this.availableTags.subscribe((tags) => {
+      console.log("Sub", tags)
+      this.question.tags = []
+    })
   }
 
   onSubmit(form: any) {
+    console.log(this.question)
     // check how many questions were marked correct
     let numberOfCorrect = this.question.answerOptions.filter(a => a.isCorrect).length
     if (numberOfCorrect === this.question.answerOptions.length) {
@@ -64,7 +72,7 @@ export class AddMcDialogComponent implements OnInit {
     const body = { ...this.question, courseId: this.selectedCourse}
     this.courseService.saveQuestion(this.question, this.selectedCourse)
       .then(() => {
-        this.question =  new MCQuestion(null, "", "", null, [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
+        this.question =  new MCQuestion(null, "", "", null, [], [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
         form.reset()
         this.showSnackbar({ message: "Die Frage wurde erfolgreich gespeichert!", color: "var(--green)"}, 2500)
       })
@@ -91,4 +99,13 @@ export class AddMcDialogComponent implements OnInit {
   checkAnswerOptionError(idx: number) {
     return this.question.answerOptions[idx].answerText === ""
   }
+
+  onBadgeChanged(event: any) {
+    if (event.target.checked) {
+      this.question.badge = "ORIGINAL" // altfrage
+    } else {
+      this.question.badge = null
+    }
+  }
+
 }

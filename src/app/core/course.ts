@@ -1,5 +1,6 @@
 import { MCQuestion } from "./mcquestion";
 import { OpenQuestion } from "./open-question";
+import { QuestionTag } from "./question-tag";
 
 export class Course {
 
@@ -9,7 +10,8 @@ export class Course {
      public lecturerName: string,
      public intendedSemester: number,
      public multipleChoiceQuestions: Array<MCQuestion>,
-     public openEndedQuestions: Array<OpenQuestion>
+     public openEndedQuestions: Array<OpenQuestion>,
+     public questionTags: Array<QuestionTag>
   ){
   }
 }
