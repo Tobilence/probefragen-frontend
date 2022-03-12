@@ -15,8 +15,11 @@ export class CourseComponent implements OnInit {
 
   course: Promise<Course> | null = null
 
+  originalQuestions: Array<GenericQuestion> = []
   genericQuestions: Array<GenericQuestion> = []
   selectedQuestion: GenericQuestion | null = null;
+
+  activeTags: Array<string> = []
 
   private selectedQuestion$: Subscription | null = null;
   private queryListener: Subscription | null = null;
@@ -38,6 +41,7 @@ export class CourseComponent implements OnInit {
         .then(() => {
           this.course = this.courseService.getCourseById(+params.get('id')!)
           this.genericQuestions = this.courseDetailService.getShuffledGenericQuestions()
+          this.originalQuestions = this.genericQuestions
           this.subscribeToQuery()
         })
       })
@@ -46,6 +50,7 @@ export class CourseComponent implements OnInit {
     this.selectedQuestion$ = this.courseDetailService.selectedQuestion.subscribe((question) => {
       this.selectedQuestion = question
     })
+    this.activeTags = []
   }
 
   // checks the query & loads the corresponding question
@@ -61,6 +66,32 @@ export class CourseComponent implements OnInit {
 
   handleQuestionSelect(question: GenericQuestion) {
     // TODO (add / remove course viewed questions)
+  }
+
+  private calculateRelevantGenericQuestions(): Array<GenericQuestion> {
+    let temp: Array<GenericQuestion> = []
+    if (this.activeTags.length == 0) {
+      return this.originalQuestions
+    } else {
+      this.genericQuestions.forEach(q => {
+        let questionTags = q.tags.map(tag => tag.name)
+        for (let tag in this.activeTags) {
+          if (questionTags.includes(tag)) {
+            temp.push(q)
+            break
+          }
+      }})
+      return temp
+    }
+  }
+
+  onTagClick(name: string, active: boolean) {
+    if (active) {
+      this.activeTags.push(name)
+    } else {
+      this.activeTags = this.activeTags.filter(tags => tags !== name)
+    }
+    this.genericQuestions = this.calculateRelevantGenericQuestions()
   }
 
   ngOnDestroy() {

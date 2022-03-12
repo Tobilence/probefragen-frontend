@@ -20,7 +20,6 @@ export class CourseService {
     if (this.courses.length === 0) {
       let response = await fetch(environment.BASE_URL + "/courses")
       this.courses = await response.json()
-      console.log(this.courses)
     }
 
     return this.courses;
@@ -28,7 +27,6 @@ export class CourseService {
 
   async getCourseById(id: number): Promise<Course> {
     await this.loadCoursesIfNecessary()
-    console.log("A", this.courses)
     return this.courses.filter(c => c.id == id)[0]
   }
 

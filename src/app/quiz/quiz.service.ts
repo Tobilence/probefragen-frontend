@@ -6,7 +6,7 @@ import { MCQuestion } from '../core/mcquestion';
 export interface AnsweredMCQuestion {
   mcQuestionId: number,
   score: number,
-  givenAnswers: Array<{id: number, givenAnswer: boolean, evaluation: boolean}>
+  givenAnswers: Array<{id: number, givenAnswer: boolean, evaluation: boolean, reDecisions: number}>
 }
 
 @Injectable({
@@ -60,5 +60,16 @@ export class QuizService {
 
   getQuestionById(id: number) {
     return this.quiz.filter((q) => q.id === id)[0]
+  }
+
+  async sendStatistics(statObject: any): Promise<number>{
+    const res = await fetch(environment.BASE_URL + "/statistics/saveone", {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify(statObject)
+    })
+    return res.status
   }
 }

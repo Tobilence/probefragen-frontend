@@ -41,7 +41,6 @@ export class QuestionDetailViewComponent implements OnInit {
     }
 
     this.selectedQuestion$ = this.courseDetailService.selectedQuestion.subscribe(question => {
-      console.log("Course Detail subscription Question: ", question)
       // Show different question
       if (question !== null) {
         this.mcQuestion = Promise.resolve(this.courseDetailService.getMCQuestion(question!.id))

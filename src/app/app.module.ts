@@ -15,7 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddMcDialogComponent } from './dialogs/add-mc-dialog/add-mc-dialog.component';
 import { AddQuestionComponent } from './dialogs/add-question/add-question.component';
 import {MatSelectModule} from '@angular/material/select';
-import { AddOpenQuestionDialogComponent } from './dialogs/add-open-question-dialog/add-open-question-dialog.component';
 import { QuestionListItemComponent } from './question/question-list-item/question-list-item.component';
 import { CoreModule } from './core/core.module';
 import { CourseComponent } from './courses/course/course.component';
@@ -29,6 +28,8 @@ import { QuizControllerComponent } from './quiz/quiz-controller/quiz-controller.
 import { QuizDoneComponent } from './quiz/quiz-done/quiz-done.component';
 import { QuizListComponent } from './quiz/quiz-list/quiz-list.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { QuestionTagDisplayComponent } from './shared/question-tag-display/question-tag-display.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     HeaderComponent,
     AddMcDialogComponent,
     AddQuestionComponent,
-    AddOpenQuestionDialogComponent,
     QuestionListItemComponent,
     CourseComponent,
     CourseListComponent,
@@ -62,7 +62,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatListModule,
     FormsModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

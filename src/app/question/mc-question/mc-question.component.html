@@ -12,9 +12,11 @@
           {{answerOption.answerText}}
         </span>
       </div>
-      <small ngClass="validationText" *ngIf="showValidation || reviewMode" >
-        {{isCorrect(answerOption.id!) ? "Richtig geantwortet!" : "Falsch geantwortet!"}}
-      </small>
+      <!--
+        <small ngClass="validationText" *ngIf="showValidation || reviewMode" >
+          {{isCorrect(answerOption.id!) ? "Richtig geantwortet!" : "Falsch geantwortet!"}}
+        </small>
+       -->
   </div>
   </div>
   <span *ngIf="showValidation || reviewMode" ngClass="pointText"> Du {{reviewMode ? "hast" : "hättest"}} auf diese Frage <span [ngStyle]="{'color': pointPercentage >= 0.75 ? 'green' : 'red'}">{{pointPercentage | number}} Punkte </span> erhalten.</span>

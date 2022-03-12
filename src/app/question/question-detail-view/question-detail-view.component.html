@@ -9,6 +9,15 @@
     </span>
   </div>
 
+  <div ngClass="tagLine" *ngIf="mcQuestion | async as mcQuestion">
+    <app-question-tag-display
+      *ngFor="let tag of mcQuestion.tags"
+      [questionTag]="tag"
+      [active]="true"
+    >
+    </app-question-tag-display>
+  </div>
+
   <!-- Question Answer -->
   <mc-question *ngIf="mcQuestion | async as mcQuestion"
     ngClass="mcQuestion"

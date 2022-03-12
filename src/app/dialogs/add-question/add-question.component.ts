@@ -2,6 +2,8 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Course } from 'src/app/core/course';
+import { MCAnswerOption } from 'src/app/core/mcanswer-option';
+import { MCQuestion } from 'src/app/core/mcquestion';
 import { QuestionTag } from 'src/app/core/question-tag';
 import { CourseService } from 'src/app/courses/service/course.service';
 
@@ -24,7 +26,9 @@ export class AddQuestionComponent implements OnInit {
       this.selectedCourseId = params["preselectedCourse"]
       if (this.selectedCourseId != -1) {
         this.courseService.getCourseById(this.selectedCourseId).then(course => {
-          this.courseTags.next(course.questionTags)
+          if (course) {
+            this.courseTags.next(course.questionTags)
+          }
         })
       }
     })

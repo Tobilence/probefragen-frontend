@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Course } from 'src/app/core/course';
 import { MCAnswerOption } from 'src/app/core/mcanswer-option';
 import { MCQuestion } from 'src/app/core/mcquestion';
@@ -15,7 +15,7 @@ import { QuestionTag } from 'src/app/core/question-tag';
 export class AddMcDialogComponent implements OnInit {
 
   @Input() selectedCourse: number = -1
-  question: MCQuestion = new MCQuestion(null, "", "", null, [], [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
+  question: MCQuestion = new MCQuestion(null, "", "", null, [], [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
   snackbarDetails: {message: string, color: string} | null = null
 
   @Input() availableTags:BehaviorSubject<Array<QuestionTag>> = new BehaviorSubject<Array<QuestionTag>>([])
@@ -24,19 +24,13 @@ export class AddMcDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.availableTags.subscribe((tags) => {
-      console.log("Sub", tags)
       this.question.tags = []
     })
   }
 
   onSubmit(form: any) {
-    console.log(this.question)
     // check how many questions were marked correct
     let numberOfCorrect = this.question.answerOptions.filter(a => a.isCorrect).length
-    if (numberOfCorrect === this.question.answerOptions.length) {
-      this.showSnackbar({ message: "Es muss mindestens eine Antwortmöglichkeit als falsch markiert sein!", color: "#f24141"}, 2500)
-      return
-    }
 
     if (numberOfCorrect === 0) {
       this.showSnackbar({ message: "Es muss mindestens eine Antwortmöglichkeit als richtig markiert sein!", color: "#f24141"}, 2500)
@@ -69,16 +63,16 @@ export class AddMcDialogComponent implements OnInit {
       return
     }
 
-    const body = { ...this.question, courseId: this.selectedCourse}
+
+
     this.courseService.saveQuestion(this.question, this.selectedCourse)
-      .then(() => {
-        this.question =  new MCQuestion(null, "", "", null, [], [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
-        form.reset()
-        this.showSnackbar({ message: "Die Frage wurde erfolgreich gespeichert!", color: "var(--green)"}, 2500)
-      })
-      .catch(() => {
-        this.showSnackbar({message: "Ein Fehler ist aufgetreten beim speichern!", color: "#f24141"}, 2500)
-      })
+    .then(() => {
+      this.question =  new MCQuestion(null, "", "", null, [], [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
+      this.showSnackbar({ message: "Die Frage wurde erfolgreich gespeichert!", color: "var(--green)"}, 2500)
+    })
+    .catch(() => {
+      this.showSnackbar({message: "Ein Fehler ist aufgetreten beim speichern!", color: "#f24141"}, 2500)
+    })
   }
 
   showSnackbar(snackbar: {message: string, color: string}, closeAfter: number) {

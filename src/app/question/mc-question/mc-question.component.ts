@@ -17,37 +17,50 @@ export class McQuestionComponent implements OnInit {
   @Input() quizMode: boolean = false
   @Input() reviewMode: boolean = false
   @Input() showValidation: boolean = false
-  @Input() givenAnswers: Array<{id: number, givenAnswer: boolean, evaluation: boolean | undefined}> | null = null
+  @Input() givenAnswers: Array<{id: number, givenAnswer: boolean, evaluation: boolean | undefined, reDecisions: number}> | null = null
   @Input("score") pointPercentage = 0
 
   progressSubscription: Subscription | null = null
 
+  // Time Tracking
+  interval: any
+  elapsedTime: number = 0
+
   constructor(private quizService: QuizService, private courseDetailService: CourseDetailService) { }
 
   ngOnInit(): void {
+    this.interval = setInterval(() => {
+      this.elapsedTime += 250
+    }, 250)
+
     if (this.givenAnswers === null) {
       if (this.quizMode) {
         // Quiz Mode
         this.mcQuestion!.answerOptions = shuffle(this.mcQuestion!.answerOptions)
         this.quizService.progress.subscribe(progress => {
-          this.givenAnswers = this.quizService.getQuestionAt(progress).answerOptions.map((opt) => ({id: opt.id!, givenAnswer: false, evaluation: undefined }))
+          this.givenAnswers = this.quizService.getQuestionAt(progress).answerOptions.map((opt) => ({id: opt.id!, givenAnswer: false, evaluation: undefined, reDecisions: 0}))
         })
       } else {
         // Practice Mode
         this.mcQuestion!.answerOptions = shuffle(this.mcQuestion!.answerOptions)
-        this.givenAnswers = this.mcQuestion!.answerOptions.map((ans) => ({id: ans.id!, givenAnswer: false, evaluation: undefined}))
+        this.givenAnswers = this.mcQuestion!.answerOptions.map((ans) => ({id: ans.id!, givenAnswer: false, evaluation: undefined, reDecisions: 0}))
       }
     }
   }
 
   checkboxChange(answerOption: MCAnswerOption, event: any) {
     let state = event.target.checked
-    this.givenAnswers!.filter(a => a.id === answerOption.id)[0].givenAnswer = state
+    let givenAnswersObject = this.givenAnswers!.filter(a => a.id === answerOption.id)[0]
+    givenAnswersObject.givenAnswer = state
+    givenAnswersObject.reDecisions += 1
   }
 
   answerOptionClicked(answerOption: MCAnswerOption) {
-    let answerObject = this.givenAnswers!.filter(a => a.id === answerOption.id)[0]
-    answerObject.givenAnswer = !answerObject.givenAnswer
+    if(!this.showValidation) {
+      let answerObject = this.givenAnswers!.filter(a => a.id === answerOption.id)[0]
+      answerObject.givenAnswer = !answerObject.givenAnswer
+      answerObject.reDecisions += 1
+    }
   }
 
   validateAnswers(showValidation: boolean) {
@@ -74,22 +87,30 @@ export class McQuestionComponent implements OnInit {
         this.pointPercentage = markedAnswers / correctAnswers
       }
 
-      // todo - maybe this exectues too early
       this.showValidation = showValidation
+
+      if (!this.quizMode) {
+        this.courseDetailService.sendStatistics(this.prepareStatObject())
+      } else {
+        this.quizService.sendStatistics(this.prepareStatObject())
+      }
   }
 
-  // handles the next Press in quiz Mode
+  // handles the next Press
   nextQuestion() {
+    // Practice Mode
     if (!this.quizMode) {
       this.courseDetailService.nextQuestion()
       return
     }
+
+    // Quiz Mode
     this.validateAnswers(false)
 
     let answer = {
       mcQuestionId: this.mcQuestion!.id!,
       score: this.pointPercentage,
-      givenAnswers: this.givenAnswers!.map(g => ({id: g.id, givenAnswer: g.givenAnswer, evaluation: g.evaluation!}))
+      givenAnswers: this.givenAnswers!.map(g => ({id: g.id, givenAnswer: g.givenAnswer, evaluation: g.evaluation!, reDecisions: g.reDecisions}))
     }
     this.quizService.submitAnswer(answer)
     this.quizService.requestNextQuestion()
@@ -100,7 +121,25 @@ export class McQuestionComponent implements OnInit {
       return this.givenAnswers?.filter(a => a.id === id)[0].evaluation
   }
 
+  private prepareStatObject() {
+    return {
+      mcQuestionId: this.mcQuestion!.id,
+      answerContext: this.quizMode ? "QUIZ" : "PRACTICE",
+      score: this.pointPercentage,
+      answerTime: this.elapsedTime / 1000, // TODO
+      answerOptionStatistics: this.givenAnswers!.map(g => {
+        return {
+          answerOptionId: g.id,
+          reDecisions: g.reDecisions, // TODO
+          finalAnswerCorrect: g.evaluation, // TODO
+          answerPosition: this.givenAnswers!.indexOf(g) // TODO
+        }
+      })
+    }
+  }
+
   ngOnDestroy() {
     this.progressSubscription?.unsubscribe()
+    clearInterval(this.interval)
   }
 }

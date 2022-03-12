@@ -8,9 +8,24 @@
       </div>
       <span *ngIf="!(isHandset$ | async)" ngClass="actionCall" [routerLink]="['/add-question']" [queryParams]="{preselectedCourse: course.id}">Hilf anderen indem du selbst Fragen hinzufügst!</span>
     </div>
+    <div
+      ngClass="filterLine"
+      *ngIf="!(isHandset$ | async) && genericQuestions !== null && selectedQuestion === null"
+    >
+      <span ngClass="title">Filter nach Tags: </span>
+      <app-question-tag-display
+        *ngFor="let tag of (course | async)?.questionTags"
+        [questionTag]="tag"
+        [active]="activeTags.includes(tag.name)"
+        [allowClicks]="true"
+        (onClickEvent)="onTagClick($event.name, $event.active)"
+      >
+      </app-question-tag-display>
+    </div>
 
     <div ngClass="questionAreaWrapper" *ngIf="genericQuestions !== null && selectedQuestion === null">
-        <span *ngIf="genericQuestions.length == 0" ngClass="no-questions-placholder"> Es gibt noch keine Fragen! Sei der/die erste, der/die Fragen hinzufügt!</span>
+        <span *ngIf="(course | async) && originalQuestions.length == 0" ngClass="no-questions-placholder"> Es gibt noch keine Fragen! Füge jetzt als erstes Fragen hinzu! 😁 </span>
+        <span *ngIf="originalQuestions.length != 0 && genericQuestions.length == 0" ngClass="no-questions-placholder"> Für diesen Tag gibt es noch keine Fragen. Füge jetzt welche hinzu! 😁 </span>
         <question-list-item
           *ngFor="let question of genericQuestions"
           [mcQuestion]="question"
@@ -27,7 +42,7 @@
       </question-detail-view>
     </div>
     <div ngClass="actionCallButtonWrapper">
-      <button *ngIf="(isHandset$ | async)" ngClass="default-button actionCallButton" [routerLink]="['/add-question']" [queryParams]="{preselectedCourse: (course | async)!.id}">Hilf anderen indem du selbst Fragen hinzufügst!</button>
+      <button *ngIf="(isHandset$ | async)" ngClass="default-button actionCallButton" [routerLink]="['/add-question']" [queryParams]="{preselectedCourse: (course | async)?.id}">Hilf anderen indem du selbst Fragen hinzufügst!</button>
     </div>
   </div>
 </div>

@@ -11,17 +11,20 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
-import { CoursesModule } from '../courses/courses.module';
+import { QuestionTagDisplayComponent } from './question-tag-display/question-tag-display.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    QuestionTagDisplayComponent
+  ],
   imports: [
     CommonModule,
     BrowserModule
   ],
   exports: [
+    QuestionTagDisplayComponent
   ]
 })
 export class SharedModule { }

@@ -2,12 +2,18 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 import { MCQuestion } from 'src/app/core/mcquestion';
 import { OpenQuestion } from 'src/app/core/open-question';
+import { environment } from 'src/environments/environment';
 import { CourseService } from './course.service';
 
 export interface GenericQuestion {
   id: number,
   isMultipleChoice: boolean,
-  questionText: string
+  questionText: string,
+  tags: Array<{name: string, questionTagType: string}>
+}
+
+export interface QuestionStatistics {
+
 }
 
 @Injectable({
@@ -20,6 +26,8 @@ export class CourseDetailService {
   openQuestions: Array<OpenQuestion> = []
 
   selectedQuestion: ReplaySubject<GenericQuestion | null> = new ReplaySubject()
+
+  questionStatistics: QuestionStatistics | null = null
 
   nextQuestions: Array<GenericQuestion> = []
 
@@ -37,19 +45,14 @@ export class CourseDetailService {
   getShuffledGenericQuestions(): Array<GenericQuestion> {
     let result: Array<GenericQuestion> = []
     this.mcQuestions.forEach(q => {
-      result.push({id: q.id!, isMultipleChoice: true, questionText: q.questionText})
+      result.push({id: q.id!, isMultipleChoice: true, questionText: q.questionText, tags: q.tags})
     })
     return this.shuffle(result)
   }
 
   selectQuestion(id:number, isMultipleChoice: boolean) {
-    let question = null
-    if (isMultipleChoice) {
-      question = this.mcQuestions.filter(mc => mc.id == id)[0]
-    } else {
-      question = this.openQuestions.filter(open => open.id == id)[0]
-    }
-    this.selectedQuestion.next({id: id, isMultipleChoice: isMultipleChoice, questionText: question.questionText})
+    let question = this.mcQuestions.filter(mc => mc.id == id)[0]
+    this.selectedQuestion.next({id: id, isMultipleChoice: isMultipleChoice, questionText: question.questionText, tags: question.tags})
   }
 
   getMCQuestion(id: number) {
@@ -62,7 +65,18 @@ export class CourseDetailService {
 
   nextQuestion() {
     let randomMc = this.mcQuestions[Math.floor(Math.random()*this.mcQuestions.length)]
-    this.selectedQuestion.next({id: randomMc.id!, isMultipleChoice: true, questionText: randomMc.questionText})
+    this.selectedQuestion.next({id: randomMc.id!, isMultipleChoice: true, questionText: randomMc.questionText, tags: randomMc.tags})
+  }
+
+  async sendStatistics(statObject: any): Promise<number>{
+    const res = await fetch(environment.BASE_URL + "/statistics/saveone", {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify(statObject)
+    })
+    return res.status
   }
 
   private shuffle(array: Array<any>) {

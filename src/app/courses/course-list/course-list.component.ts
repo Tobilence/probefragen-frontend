@@ -11,13 +11,11 @@ import { CourseService } from '../service/course.service';
 export class CourseListComponent implements OnInit {
 
   courses: any[] = []
-
   mapped: any[] = []
 
   constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
-    console.log(this.mapped)
     this.courseService.getCourses()
       .then(courses => {
         this.courses = courses

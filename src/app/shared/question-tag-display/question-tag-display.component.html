@@ -1,0 +1,12 @@
+<div
+  *ngIf="questionTag != null"
+  ngClass="tagWrapper"
+  [ngClass]="{
+    'tagWrapper': true,
+    'active': active,
+    'inactive': !active
+  }"
+  (click)="toggleActive()"
+>
+  <span ngClass="tagName">#{{questionTag.name}}</span>
+</div>

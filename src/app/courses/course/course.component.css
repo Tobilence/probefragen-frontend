@@ -66,6 +66,13 @@
   flex-grow: 1;
 }
 
+.filterLine {
+  display: flex;
+  column-gap: 1rem;
+  align-items: center;
+  margin: .5rem 0;
+}
+
 @media screen and (max-width: 1200px) {
   .questionAreaWrapper {
     padding: 2% 0;

@@ -1,5 +1,11 @@
 <div *ngIf="mcQuestion !== null" ngClass="wrapper">
   <div ngClass="colorLine">
+    <span
+      *ngFor="let tag of questionTags"
+      ngClass="questionTag"
+    >
+      #{{tag}}
+    </span>
   </div>
   <span ngClass="questionText">{{mcQuestion.questionText}}</span>
 </div>

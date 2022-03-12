@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MCQuestion } from 'src/app/core/mcquestion';
-import { GenericQuestion } from 'src/app/courses/service/course-detail.service';
+import { CourseDetailService, GenericQuestion } from 'src/app/courses/service/course-detail.service';
+import { CourseService } from 'src/app/courses/service/course.service';
 
 @Component({
   selector: 'question-list-item',
@@ -11,9 +12,14 @@ export class QuestionListItemComponent implements OnInit {
 
   @Input() mcQuestion: GenericQuestion | null = null
 
-  constructor() { }
+  questionTags:string[] = ["Kapitel 1", "Historische Grundlagen"]
+
+  constructor(private courseDetailService: CourseDetailService) { }
 
   ngOnInit(): void {
+    if (this.mcQuestion?.isMultipleChoice) {
+      // this.questionTags = this.courseDetailService.getMCQuestion(this.mcQuestion.id).tags.map(tag => tag.name)
+    }
   }
 
 }
