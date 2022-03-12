@@ -12,13 +12,13 @@ export class QuestionListItemComponent implements OnInit {
 
   @Input() mcQuestion: GenericQuestion | null = null
 
-  questionTags:string[] = ["Kapitel 1", "Historische Grundlagen"]
+  questionTags:string[] = []
 
   constructor(private courseDetailService: CourseDetailService) { }
 
   ngOnInit(): void {
     if (this.mcQuestion?.isMultipleChoice) {
-      // this.questionTags = this.courseDetailService.getMCQuestion(this.mcQuestion.id).tags.map(tag => tag.name)
+      this.questionTags = this.courseDetailService.getMCQuestion(this.mcQuestion.id).tags.map(tag => tag.name)
     }
   }
 
