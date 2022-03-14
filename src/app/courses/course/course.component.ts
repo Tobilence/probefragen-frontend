@@ -15,7 +15,6 @@ export class CourseComponent implements OnInit {
 
   course: Promise<Course> | null = null
 
-  originalQuestions: Array<GenericQuestion> = []
   genericQuestions: Array<GenericQuestion> = []
   selectedQuestion: GenericQuestion | null = null;
 
@@ -41,7 +40,6 @@ export class CourseComponent implements OnInit {
         .then(() => {
           this.course = this.courseService.getCourseById(+params.get('id')!)
           this.genericQuestions = this.courseDetailService.getShuffledGenericQuestions()
-          this.originalQuestions = this.genericQuestions
           this.subscribeToQuery()
         })
       })
@@ -69,19 +67,13 @@ export class CourseComponent implements OnInit {
   }
 
   private calculateRelevantGenericQuestions(): Array<GenericQuestion> {
+    return this.genericQuestions
     let temp: Array<GenericQuestion> = []
     if (this.activeTags.length == 0) {
-      return this.originalQuestions
+      return this.genericQuestions
     } else {
-      this.genericQuestions.forEach(q => {
-        let questionTags = q.tags.map(tag => tag.name)
-        for (let tag in this.activeTags) {
-          if (questionTags.includes(tag)) {
-            temp.push(q)
-            break
-          }
-      }})
-      return temp
+      // return only questions that have a tag that is also present in this.activeTags
+      // return this.originalQuestions.filter(q => q.tags.map(tag => tag.name).some(r=> this.activeTags.indexOf(r) >= 0))
     }
   }
 
@@ -91,7 +83,6 @@ export class CourseComponent implements OnInit {
     } else {
       this.activeTags = this.activeTags.filter(tags => tags !== name)
     }
-    this.genericQuestions = this.calculateRelevantGenericQuestions()
   }
 
   ngOnDestroy() {

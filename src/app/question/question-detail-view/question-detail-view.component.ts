@@ -44,14 +44,14 @@ export class QuestionDetailViewComponent implements OnInit {
       // Show different question
       if (question !== null) {
         this.mcQuestion = Promise.resolve(this.courseDetailService.getMCQuestion(question!.id))
+        this.router.navigate(
+          [],
+          {
+            relativeTo: this.activatedRoute,
+            queryParams: { question: question!.id, mc: question!.isMultipleChoice },
+            queryParamsHandling: 'merge'
+        })
       }
-      this.router.navigate(
-        [],
-        {
-          relativeTo: this.activatedRoute,
-          queryParams: { question: question!.id, mc: question!.isMultipleChoice },
-          queryParamsHandling: 'merge'
-      })
     })
   }
 

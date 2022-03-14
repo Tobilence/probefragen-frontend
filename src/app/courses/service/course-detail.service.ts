@@ -45,7 +45,7 @@ export class CourseDetailService {
   getShuffledGenericQuestions(): Array<GenericQuestion> {
     let result: Array<GenericQuestion> = []
     this.mcQuestions.forEach(q => {
-      result.push({id: q.id!, isMultipleChoice: true, questionText: q.questionText, tags: q.tags})
+      result.push({id: q.id!, isMultipleChoice: true, questionText: q.questionText, tags: [{name: "Kapitel 1", questionTagType: "123"}]})
     })
     return this.shuffle(result)
   }
@@ -84,11 +84,9 @@ export class CourseDetailService {
 
     // While there remain elements to shuffle...
     while (currentIndex != 0) {
-
       // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-
       // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];

@@ -30,6 +30,7 @@ import { QuizListComponent } from './quiz/quiz-list/quiz-list.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { QuestionTagDisplayComponent } from './shared/question-tag-display/question-tag-display.component';
 import { SharedModule } from './shared/shared.module';
+import { FilterQuestionsPipePipe } from './pipes/filter-questions-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SharedModule } from './shared/shared.module';
     QuizViewComponent,
     QuizControllerComponent,
     QuizDoneComponent,
-    QuizListComponent
+    QuizListComponent,
+    FilterQuestionsPipePipe
   ],
   imports: [
     BrowserModule,
