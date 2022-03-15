@@ -8,10 +8,10 @@
       </div>
       <span *ngIf="!(isHandset$ | async)" ngClass="actionCall" [routerLink]="['/add-question']" [queryParams]="{preselectedCourse: course.id}">Hilf anderen indem du selbst Fragen hinzufügst!</span>
     </div>
-    <!-- TODO: Filter line (currently disabled from showing)-->
+    <!-- TODO: Filter line
     <div
       ngClass="filterLine"
-      *ngIf="false && !(isHandset$ | async) && genericQuestions !== null && selectedQuestion === null"
+      *ngIf="!(isHandset$ | async) && genericQuestions !== null && selectedQuestion === null"
     >
       <span ngClass="title">Filter nach Tags: </span>
       <app-question-tag-display
@@ -23,11 +23,11 @@
       >
       </app-question-tag-display>
     </div>
-
+    -->
     <div ngClass="questionAreaWrapper" *ngIf="genericQuestions !== null && selectedQuestion === null">
         <span *ngIf="(course | async) && genericQuestions.length == 0" ngClass="no-questions-placholder"> Es gibt noch keine Fragen! Füge jetzt als erstes Fragen hinzu! 😁 </span>
         <question-list-item
-          *ngFor="let question of genericQuestions | filterQuestionsPipe:'Aussage':['Kapitel 1']"
+          *ngFor="let question of genericQuestions"
           [mcQuestion]="question"
           (click)="handleQuestionSelect(question)"
           routerLink="./"

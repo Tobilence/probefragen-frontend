@@ -26,7 +26,7 @@
 .questionAreaWrapper {
   padding: 2% 0;
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   column-gap: 15px;
   row-gap: 15px;
   width: 100%;
@@ -74,6 +74,7 @@
 }
 
 @media screen and (max-width: 1200px) {
+  /*
   .questionAreaWrapper {
     padding: 2% 0;
     display: grid;
@@ -82,6 +83,7 @@
     row-gap: 15px;
     width: 100%;
   }
+  */
 }
 
 @media screen and (max-width: 840px) {
@@ -93,7 +95,7 @@
   .rootFlex {
     min-height: 90vh;
   }
-
+/*
   .questionAreaWrapper {
     padding: 2% 0;
     display: grid;
@@ -102,7 +104,7 @@
     row-gap: 15px;
     width: 100%;
   }
-
+*/
   .infoLineItems {
     display: flex;
     flex-direction: column-reverse;

@@ -29,7 +29,7 @@ export class CourseDetailService {
 
   questionStatistics: QuestionStatistics | null = null
 
-  nextQuestions: Array<GenericQuestion> = []
+  nextQuestions: Array<MCQuestion> = []
 
   constructor(private couseService: CourseService) { }
 
@@ -39,13 +39,13 @@ export class CourseDetailService {
     this.mcQuestions = course.multipleChoiceQuestions
     this.openQuestions = course.openEndedQuestions
     this.courseId.next(courseId)
-    this.nextQuestions = this.getShuffledGenericQuestions()
+    this.nextQuestions = this.mcQuestions
   }
 
   getShuffledGenericQuestions(): Array<GenericQuestion> {
     let result: Array<GenericQuestion> = []
     this.mcQuestions.forEach(q => {
-      result.push({id: q.id!, isMultipleChoice: true, questionText: q.questionText, tags: [{name: "Kapitel 1", questionTagType: "123"}]})
+      result.push({id: q.id!, isMultipleChoice: true, questionText: q.questionText, tags: q.tags})
     })
     return this.shuffle(result)
   }
@@ -64,7 +64,10 @@ export class CourseDetailService {
   }
 
   nextQuestion() {
-    let randomMc = this.mcQuestions[Math.floor(Math.random()*this.mcQuestions.length)]
+    if (this.nextQuestions.length === 0) {
+      this.nextQuestions = this.mcQuestions //re populate next question
+    }
+    let randomMc = this.nextQuestions[Math.floor(Math.random()*this.nextQuestions.length)]
     this.selectedQuestion.next({id: randomMc.id!, isMultipleChoice: true, questionText: randomMc.questionText, tags: randomMc.tags})
   }
 
