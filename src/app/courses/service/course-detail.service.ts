@@ -68,6 +68,7 @@ export class CourseDetailService {
       this.nextQuestions = this.mcQuestions //re populate next question
     }
     let randomMc = this.nextQuestions[Math.floor(Math.random()*this.nextQuestions.length)]
+    this.nextQuestions = this.nextQuestions.filter(q => q.id !== randomMc.id)
     this.selectedQuestion.next({id: randomMc.id!, isMultipleChoice: true, questionText: randomMc.questionText, tags: randomMc.tags})
   }
 

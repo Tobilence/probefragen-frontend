@@ -40,7 +40,6 @@ export class CourseComponent implements OnInit {
         .then(() => {
           this.course = this.courseService.getCourseById(+params.get('id')!)
           this.genericQuestions = this.courseDetailService.getShuffledGenericQuestions()
-          console.log(this.genericQuestions)
           this.subscribeToQuery()
         })
       })
