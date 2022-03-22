@@ -128,17 +128,8 @@ button:hover {
   height: 24px;
 }
 
-.additional-selection {
-  opacity: 0.75;
-  font-size: 0.75em;
-}
-
 .tagSelection {
   margin: 0;
-  padding: 0;
-}
-
-.mat-form-field-wrapper {
   padding: 0;
 }
 

@@ -18,7 +18,7 @@ export class AddMcDialogComponent implements OnInit {
   question: MCQuestion = new MCQuestion(null, "", "", null, [], [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
   snackbarDetails: {message: string, color: string} | null = null
 
-  @Input() availableTags:BehaviorSubject<Array<QuestionTag>> = new BehaviorSubject<Array<QuestionTag>>([])
+  @Input() availableTags: BehaviorSubject<Array<QuestionTag>> = new BehaviorSubject<Array<QuestionTag>>([])
 
   constructor(private courseService: CourseService) { }
 
@@ -69,6 +69,7 @@ export class AddMcDialogComponent implements OnInit {
     .then(() => {
       this.question =  new MCQuestion(null, "", "", null, [], [new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false), new MCAnswerOption(null, "", false)])
       this.showSnackbar({ message: "Die Frage wurde erfolgreich gespeichert!", color: "var(--green)"}, 2500)
+      form.reset()
     })
     .catch(() => {
       this.showSnackbar({message: "Ein Fehler ist aufgetreten beim speichern!", color: "#f24141"}, 2500)
@@ -100,6 +101,10 @@ export class AddMcDialogComponent implements OnInit {
     } else {
       this.question.badge = null
     }
+  }
+
+  handleTagChange(event: any) {
+    this.question.tags = event
   }
 
 }

@@ -31,6 +31,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { QuestionTagDisplayComponent } from './shared/question-tag-display/question-tag-display.component';
 import { SharedModule } from './shared/shared.module';
 import { FilterQuestionsPipePipe } from './pipes/filter-questions-pipe.pipe';
+import { QuestionTagSelectComponent } from './shared/question-tag-select/question-tag-select.component';
 
 @NgModule({
   declarations: [

@@ -14,22 +14,14 @@
     <small *ngIf="!questionText.valid && questionText.touched" ngClass="error"> Fragestellung ist ein Pflichtfeld</small>
   </div>
 
-  <!-- Question Tags -->
-  <mat-form-field appearance="fill" *ngIf="availableTags.value.length > 0" appearance="outline" ngClass="tagSelection">
-    <mat-label>Tags (empfohlen)</mat-label>
-    <mat-select [(value)]="question.tags" multiple>
-      <mat-select-trigger>
-        {{question.tags.length > 0 ? question.tags[0].name : ''}}
-        {{question.tags.length > 1 ? ', ' : ''}}
-        {{question.tags.length > 1 ? question.tags[1].name : ''}}
-        <span *ngIf="question.tags.length > 2" ngClass="additional-selection">
-          (+ {{+(question.tags.length - 2)}} mehr)
-        </span>
-      </mat-select-trigger>
-      <mat-option *ngFor="let tag of availableTags.value" [value]="tag">{{tag.name}}</mat-option>
-    </mat-select>
-    <small *ngIf="question.tags.length == 0">Tags helfen uns, deine Frage zu kategorisieren!</small>
-  </mat-form-field>
+  <question-tag-select
+    ngClass="tagSelection"
+    *ngIf="availableTags.value.length > 0"
+    label="Tags (empfohlen)"
+    [tags]="availableTags.value"
+    (on-change)="handleTagChange($event)"
+  >
+  </question-tag-select>
 
   <!-- Badge -->
   <div ngClass="badgeWrapper">
