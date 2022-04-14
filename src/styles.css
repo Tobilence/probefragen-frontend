@@ -49,3 +49,15 @@ body {
 .default-button:hover {
   background-color: var(--dark-blue);
 }
+
+.mat-slider-thumb {
+	background-color: var(--primary-blue) !important;
+}
+
+.mat-slider-thumb-label {
+	background-color: var(--primary-blue) !important;
+}
+
+.mat-slider-track-fill {
+	background-color: var(--primary-blue) !important;
+}

@@ -25,7 +25,7 @@ export class QuizListComponent implements OnInit {
     if (questions < 10)
       return "Zu wenige Fragen um dieses Quiz durchzuführen! (" + questions + " Fragen)"
     else
-      return "Jetzt ein Quiz mit " + questions + " Fragen starten."
+      return "Prüfe dein Wissen mit unseren " + questions + " Probefragen!"
   }
 
   isValidQuiz(course: Course) {

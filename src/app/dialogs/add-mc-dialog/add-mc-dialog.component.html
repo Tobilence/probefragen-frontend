@@ -19,6 +19,7 @@
     *ngIf="availableTags.value.length > 0"
     label="Tags (empfohlen)"
     [tags]="availableTags.value"
+    [showAsTag]="true"
     (on-change)="handleTagChange($event)"
   >
   </question-tag-select>

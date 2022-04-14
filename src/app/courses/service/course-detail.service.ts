@@ -24,7 +24,7 @@ export class CourseDetailService {
   courseId: BehaviorSubject<number> = new BehaviorSubject(-1)
   mcQuestions: Array<MCQuestion> = []
   openQuestions: Array<OpenQuestion> = []
-
+  name: string | null = null
   selectedQuestion: ReplaySubject<GenericQuestion | null> = new ReplaySubject()
 
   questionStatistics: QuestionStatistics | null = null
@@ -38,6 +38,7 @@ export class CourseDetailService {
     let course = await this.couseService.getCourseById(courseId)
     this.mcQuestions = course.multipleChoiceQuestions
     this.openQuestions = course.openEndedQuestions
+    this.name = course.name
     this.courseId.next(courseId)
     this.nextQuestions = this.mcQuestions
   }

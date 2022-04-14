@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, empty, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MCQuestion } from '../core/mcquestion';
+import { QuestionTag } from '../core/question-tag';
 
 export interface AnsweredMCQuestion {
   mcQuestionId: number,
@@ -25,16 +26,21 @@ export class QuizService {
 
   constructor() { }
 
-  async loadQuiz(courseId: number, numberOfQuestions: number) {
+  async loadQuiz(courseId: number, numberOfQuestions: number, questionTags: Array<QuestionTag>) {
+    console.log(questionTags)
     let request = await fetch(environment.BASE_URL + "/quiz", {
       headers: {"Content-Type": "application/json"},
       method: "POST",
-      body: JSON.stringify({courseId, numberOfQuestions})
+      body: JSON.stringify({courseId, numberOfQuestions, questionTags})
     })
     let data = await request.json()
-    this.quiz = data
-    this.progress.next(0)
-    return this.quiz
+    if (request.status === 200) {
+      this.quiz = data
+      this.progress.next(0)
+      return this.quiz
+    } else {
+      throw new Error(data.error)
+    }
   }
 
   calculateProgressPercentage() {

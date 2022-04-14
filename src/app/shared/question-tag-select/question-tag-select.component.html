@@ -1,13 +1,24 @@
 <mat-form-field appearance="fill" appearance="outline" ngClass="tagSelection">
   <mat-label>{{label}}</mat-label>
   <mat-select [(value)]="selectedTags" multiple (selectionChange)="handleChange($event)">
-    <mat-select-trigger>
+    <mat-select-trigger *ngIf="!showAsTag">
       {{selectedTags.length > 0 ? selectedTags[0].name : ''}}
       {{selectedTags.length > 1 ? ', ' : ''}}
       {{selectedTags.length > 1 ? selectedTags[1].name : ''}}
       <span *ngIf="selectedTags.length > 2" ngClass="additional-selection">
         (+ {{+(selectedTags.length - 2)}} mehr)
       </span>
+    </mat-select-trigger>
+
+    <mat-select-trigger *ngIf="showAsTag">
+      <div ngClass="tagTriggerWrapper">
+          <app-question-tag-display *ngFor="let tag of selectedTags"
+          [questionTag]="tag"
+          [active]="true"
+          ngClass="tagTrigger"
+        >
+        </app-question-tag-display>
+      </div>
     </mat-select-trigger>
     <mat-option *ngFor="let tag of tags" [value]="tag">{{tag.name}}</mat-option>
   </mat-select>

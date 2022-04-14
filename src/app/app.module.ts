@@ -27,11 +27,12 @@ import { QuizViewComponent } from './quiz/quiz-view/quiz-view.component';
 import { QuizControllerComponent } from './quiz/quiz-controller/quiz-controller.component';
 import { QuizDoneComponent } from './quiz/quiz-done/quiz-done.component';
 import { QuizListComponent } from './quiz/quiz-list/quiz-list.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { QuestionTagDisplayComponent } from './shared/question-tag-display/question-tag-display.component';
 import { SharedModule } from './shared/shared.module';
 import { FilterQuestionsPipePipe } from './pipes/filter-questions-pipe.pipe';
-import { QuestionTagSelectComponent } from './shared/question-tag-select/question-tag-select.component';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { HomeComponent } from './home/home.component';
+import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -50,10 +51,11 @@ import { QuestionTagSelectComponent } from './shared/question-tag-select/questio
     QuizControllerComponent,
     QuizDoneComponent,
     QuizListComponent,
-    FilterQuestionsPipePipe
+    FilterQuestionsPipePipe,
+    HomeComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
@@ -66,9 +68,13 @@ import { QuestionTagSelectComponent } from './shared/question-tag-select/questio
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
-    SharedModule
+    MatSliderModule,
+    SharedModule,
+    MatExpansionModule
   ],
-  providers: [],
+  providers: [
+    {provide : LocationStrategy , useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

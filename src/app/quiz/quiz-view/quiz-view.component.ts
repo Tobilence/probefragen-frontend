@@ -21,9 +21,6 @@ export class QuizViewComponent implements OnInit {
   constructor(private quizService: QuizService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    // testing Purpose --
-    // this.quizService.loadQuiz(1, 5)
-    // --
 
     this.interval = setInterval(() => {
       this.timer += 1000
@@ -56,7 +53,7 @@ export class QuizViewComponent implements OnInit {
     })
   }
 
-  // gety applied to progressbar width
+  // get applied to progressbar width
   calculateProgress(): string {
     return this.quizService.calculateProgressPercentage() + "%"
   }

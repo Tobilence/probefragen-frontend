@@ -1,25 +1,82 @@
-<div ngClass="wrapper">
-  <div ngClass="content">
+<div ngClass="wrapper" *ngIf="!loading && !error">
+  <div ngClass="content"
+    *ngIf="course != null"
+  >
     <span ngClass="title headline">Starte jetzt eine Probeprüfung</span>
-    <div>
-      <h3 ngClass="title sectionTitle">Ausgewähltes Fach: {{courseName}}</h3>
-      <h3 ngClass="explantationTitle title sectionTitle"> Beachte: </h3>
-      <ul ngClass="beCarefulList">
-        <li ngClass="notes">Es gibt Teilpunkte</li>
-        <li ngClass="notes">Sobald eine falsche Antwortmöglichkeit als richtig angekreuzt ist, gibt diese Frage 0 Punkte</li>
-        <li ngClass="notes">Vor- bzw zurückblättern ist nicht möglich.</li>
-        <li ngClass="notes">Zur besseren Selbsteinschätzung wird ein Timer gestartet. Dieser ist nur für dich da. Die Prüfung wird nicht nach einer gewissen Zeit beendet.</li>
-      </ul>
-      <h3 ngClass="title withDisclaimer sectionTitle"> Notenschlüssel:</h3>
-      <span ngClass="disclaimer">Achtung: Dieser Notenschlüssel entspricht nicht zwingend dem der Prüfung! Bitte schaue dafür im entsprechenden Moodle Kurs nach.</span>
-      <ul ngClass="explanationList">
-        <li ngClass="notes"> weniger als 60% -> 5 </li>
-        <li ngClass="notes"> 60% - 70% -> 4</li>
-        <li ngClass="notes"> 70% - 80% -> 3</li>
-        <li ngClass="notes"> 80% - 90% -> 2</li>
-        <li ngClass="notes"> 90% - 100% -> 1</li>
-      </ul>
+    <div ngClass="columnDivider">
+      <div>
+        <h3 ngClass="title sectionTitle">Ausgewähltes Fach: {{course.name}}</h3>
+        <h3 ngClass="explantationTitle title sectionTitle"> Beachte: </h3>
+        <ul ngClass="beCarefulList">
+          <li ngClass="notes">Es gibt Teilpunkte</li>
+          <li ngClass="notes">Sobald eine falsche Antwortmöglichkeit als richtig angekreuzt ist, gibt diese Frage 0 Punkte</li>
+          <li ngClass="notes">Vor- bzw zurückblättern ist nicht möglich.</li>
+          <li ngClass="notes">Zur besseren Selbsteinschätzung wird ein Timer gestartet. Dieser ist nur für dich da. Die Prüfung wird nicht nach einer gewissen Zeit beendet.</li>
+        </ul>
+        <h3 ngClass="title withDisclaimer sectionTitle"> Notenschlüssel:</h3>
+        <span ngClass="disclaimer">Achtung: Dieser Notenschlüssel entspricht nicht zwingend dem der Prüfung! Bitte schaue dafür im entsprechenden Moodle Kurs nach.</span>
+        <ul ngClass="explanationList">
+          <li ngClass="notes"> weniger als 60% -> 5 </li>
+          <li ngClass="notes"> 60% - 70% -> 4</li>
+          <li ngClass="notes"> 70% - 80% -> 3</li>
+          <li ngClass="notes"> 80% - 90% -> 2</li>
+          <li ngClass="notes"> 90% - 100% -> 1</li>
+        </ul>
+      </div>
+
+      <div ngClass="controlWrapper">
+        <mat-expansion-panel [expanded]="!(isHandset$ | async)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Quizlänge: {{questionSliderValue}} Fragen
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <span>
+            Minumum: 5 <br />
+            Maximum: {{course.multipleChoiceQuestions.length}}
+          </span>
+          <mat-slider ngClass="slider" thumbLabel min="5" max="{{maxQuestions}}" step="1" value="{{questionSliderValue}}" [(ngModel)]="questionSliderValue" ></mat-slider>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="!(isHandset$ | async)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Spezielle Themenauswahl?
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+         <div ngClass="cardContent">
+
+          <question-tag-select
+            label="Welche Themen soll deine Prüfung behandeln?"
+            [tags]="course!.questionTags"
+            (on-change)="handleTagChange($event)"
+            [showAsTag]="true"
+          >
+          </question-tag-select>
+          <small>Sollte nichts ausgewählt sein, werden alle Themen behandelt!</small>
+         </div>
+        </mat-expansion-panel>
+      </div>
     </div>
-    <button [disabled]="!didLoad" ngClass="default-button startButton" routerLink="./" [queryParams]="{status: 'active'}">Start Quiz</button>
+
+    <button ngClass="default-button startButton" (click)="handleStartQuiz()">Start Quiz</button>
   </div>
+</div>
+
+
+<!-- Loading ... -->
+<div
+ *ngIf="loading && !error"
+>
+  Dein Quiz wird geladen! Bitte gedulde dich einen Moment...
+</div>
+
+<!-- Error -->
+<div
+  *ngIf="error != null"
+>
+  Etwas ist schwiefgelaufen beim Erstellen deines Quiz. Sorry!
+  {{error}}
 </div>

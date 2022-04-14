@@ -1,4 +1,4 @@
-  <div ngClass="wrapper">
+  <div ngClass="wrapper" *ngIf="currentQuestion != null">
     <div ngClass="infoLineWrapper title">
       <span ngClass="infoLine" [style]="{'margin-right': '5px'}">Quiz</span>
       <span>vergangene Zeit: <span [ngStyle]="{'min-width': '50px'}">{{timer | date:"mm:ss"}}</span></span>
@@ -17,3 +17,4 @@
       <div ngClass="progress" [ngStyle]="{'width': calculateProgress()}">  </div>
     </div>
   </div>
+

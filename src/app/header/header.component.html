@@ -21,7 +21,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <img ngClass="logo" src="../../assets/logo.svg" alt="Probefragen.at" routerLink="/courses" />
+      <img ngClass="logo" src="../../assets/logo.png" alt="Probefragen.at" routerLink="/courses" />
       <span class="spacer"></span>
       <div *ngIf="(isHandset$ | async) === false">
         <a class="link title" routerLink="/courses" [queryParams]="{}">Kurse</a>

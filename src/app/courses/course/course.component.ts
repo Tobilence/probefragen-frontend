@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { map, Observable, shareReplay, Subscription } from 'rxjs';
 import { Course } from 'src/app/core/course';
@@ -30,7 +31,7 @@ export class CourseComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private activatedRoute: ActivatedRoute, private breakpointObserver: BreakpointObserver, private courseService: CourseService, private courseDetailService: CourseDetailService) {}
+  constructor(private activatedRoute: ActivatedRoute, private title: Title, private meta: Meta, private breakpointObserver: BreakpointObserver, private courseService: CourseService, private courseDetailService: CourseDetailService) {}
 
   ngOnInit(): void {
     this.routeListener = this.activatedRoute.paramMap.subscribe((params => {
@@ -39,6 +40,9 @@ export class CourseComponent implements OnInit {
         this.courseDetailService.init(+params.get('id')!)
         .then(() => {
           this.course = this.courseService.getCourseById(+params.get('id')!)
+          this.title.setTitle("Probefragen - " + this.courseDetailService.name)
+          this.meta.addTag({name: "description", content: "Umfangreiche Fragensammlung zum Fach " + this.courseDetailService.name + " im Bachelorstudium Psychologie an der Universität Wien."})
+          this.meta.addTag({name: "keywords", content: this.courseDetailService.name + ", Probefragen, Psychologie, Universität Wien"})
           this.genericQuestions = this.courseDetailService.getShuffledGenericQuestions()
           this.subscribeToQuery()
         })

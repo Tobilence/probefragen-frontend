@@ -11,6 +11,7 @@ export class QuestionTagSelectComponent implements OnInit {
   @Input() label: string = "Tags"
   @Input() tags: Array<QuestionTag> = []
   @Input() hint: string | null = null // Tags helfen uns, deine Frage zu kategorisieren!
+  @Input() showAsTag: boolean = false
 
   selectedTags: Array<QuestionTag> = []
 
