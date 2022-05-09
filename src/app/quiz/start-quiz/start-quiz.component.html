@@ -28,15 +28,15 @@
         <mat-expansion-panel [expanded]="!(isHandset$ | async)">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Quizlänge: {{questionSliderValue}} Fragen
+              Wähle dein Quizlänge
             </mat-panel-title>
-
           </mat-expansion-panel-header>
-          <span>
-            Minumum: 5 <br />
-            Maximum: {{course.multipleChoiceQuestions.length}}
-          </span>
-          <mat-slider ngClass="slider" thumbLabel min="5" max="{{maxQuestions}}" step="1" value="{{questionSliderValue}}" [(ngModel)]="questionSliderValue" ></mat-slider>
+          <small *ngIf="getMaximumQuestionsForSelectedTags() < 10" ngClass="disclaimer" [style.color]="'red'">Bitte wähle mehr Tags aus! Es gibt zu wenig Fragen mit dieser Auswahl. ({{getMaximumQuestionsForSelectedTags()}} Fragen)</small>
+          <mat-button-toggle-group #group="matButtonToggleGroup" name="questions select" aria-label="question select" value="15" (change)="handleQuizLengthChange(group.value)">
+            <mat-button-toggle value="10">10 Fragen</mat-button-toggle>
+            <mat-button-toggle value="15">15 Fragen</mat-button-toggle>
+            <mat-button-toggle value="20">20 Fragen</mat-button-toggle>
+          </mat-button-toggle-group>
         </mat-expansion-panel>
 
         <mat-expansion-panel [expanded]="!(isHandset$ | async)">

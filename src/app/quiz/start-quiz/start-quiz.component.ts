@@ -16,9 +16,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class StartQuizComponent implements OnInit {
 
   course: Course | null = null
-
-  questionSliderValue = 10
-  maxQuestions = 10
+  selectedQuizLength = 15
   selectedTags: Array<QuestionTag> = []
   loading = false
   error: string | null = null
@@ -36,29 +34,24 @@ export class StartQuizComponent implements OnInit {
 
       this.courseService.loadCoursesIfNecessary().then((courses) => {
         this.course = courses.filter(c => c.id == +params.get('id')!)[0]
-        this.questionSliderValue = this.course.multipleChoiceQuestions.length >= 30 ? 30 : this.course.multipleChoiceQuestions.length
-        this.maxQuestions = this.questionSliderValue
       })
     })
   }
 
   handleTagChange(tags: Array<QuestionTag>) {
     this.selectedTags = tags
-
-    // recalculate slider length
-    let maxQuestions = this.calculateMaximumSliderLength()
-    if(maxQuestions >= 5) {
-      this.maxQuestions = maxQuestions
-      this.questionSliderValue = maxQuestions
-    }
   }
 
-  calculateMaximumSliderLength() {
+  handleQuizLengthChange(value: number) {
+    this.selectedQuizLength = value;
+  }
+
+  getMaximumQuestionsForSelectedTags() {
     if (this.course === null)
       return -1
 
     if (this.selectedTags.length === 0)
-      return this.maxQuestions
+      return this.course.multipleChoiceQuestions.length
 
     let temp = []
 
@@ -75,11 +68,9 @@ export class StartQuizComponent implements OnInit {
   }
 
   handleStartQuiz() {
-
-    let maxNumberOfQuestions = this.calculateMaximumSliderLength()
-
+    // TODO - what happens if there are not enough questions in selected Tags?
     this.loading = true
-    this.quizService.loadQuiz(this.course!.id, this.questionSliderValue, maxNumberOfQuestions < 5 ? [] : this.selectedTags)
+    this.quizService.loadQuiz(this.course!.id, this.selectedQuizLength, this.selectedTags)
       .then(quiz => {
         this.router.navigate(
           [],

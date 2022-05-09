@@ -33,6 +33,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { HomeComponent } from './home/home.component';
 import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
     CoreModule,
     MatSliderModule,
     SharedModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatButtonToggleModule
   ],
   providers: [
     {provide : LocationStrategy , useClass: HashLocationStrategy}
