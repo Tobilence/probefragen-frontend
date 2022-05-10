@@ -61,7 +61,14 @@
       </div>
     </div>
 
-    <button ngClass="default-button startButton" (click)="handleStartQuiz()">Start Quiz</button>
+    <button
+      ngClass="default-button startButton"
+      (click)="handleStartQuiz()"
+      [disabled]="getMaximumQuestionsForSelectedTags() < 10"
+      [style]="{'backgroundColor': (getMaximumQuestionsForSelectedTags() < 10) ? 'gray' : 'var(--primary-blue)'}"
+    >
+      Start Quiz
+    </button>
   </div>
 </div>
 
